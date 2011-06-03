@@ -1,0 +1,112 @@
+package productos;
+
+import beans.Carrito;
+import beans.Producto;
+import control.Tools;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.owasp.esapi.errors.IntrusionException;
+import org.owasp.esapi.errors.ValidationException;
+import persistencia.PersistenceInterface;
+
+/**
+ *
+ * @author Juan Díez-Yanguas Barber
+ */
+public class AddCarritoServlet extends HttpServlet {
+
+    protected boolean validateForm(HttpServletRequest request) {
+        if (request.getParameterMap().size() >= 2 && request.getParameter("prod") != null && request.getParameter("cant") != null) {
+            return Tools.validateUUID(request.getParameter("prod"));
+        } else {
+            return false;
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (validateForm(request) == false) {
+            response.sendError(404);
+        } else {
+            try {
+                int cantidadNueva = Tools.validateNumber(request.getParameter("cant"), "Unidades");
+                String cod = request.getParameter("prod");
+                PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+                if (persistencia.getProduct(cod) != null) {
+                    Producto prod = persistencia.getProduct(cod);
+
+                    Carrito carro = (Carrito) request.getSession().getAttribute("carrito");
+                    Integer cantidadActual = 0;
+                    if (carro != null) {
+                        cantidadActual = carro.getArticulos().get(cod);
+                        if (cantidadActual == null) {
+                            cantidadActual = 0;
+                        }
+                    }
+                    //Compruebo si hay unidades disponibles
+                    if ((cantidadNueva + cantidadActual) > prod.getStock()) {
+                        request.setAttribute("resultados", "No hay suficiente Stock");
+                        Tools.anadirMensaje(request, "No hay stock suficiente del producto seleccionado");
+                        request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
+                        return;
+                    }
+
+                    if (carro == null) {
+                        carro = new Carrito(Tools.genUUID(), (String)request.getSession().getAttribute("usuario"));
+                        carro.addProduct(request.getParameter("prod"), cantidadNueva, prod.getPrecio());
+                        request.getSession().setAttribute("carrito", carro);
+                    } else {
+                        ((Carrito) request.getSession().getAttribute("carrito")).addProduct(cod, cantidadNueva, prod.getPrecio());
+                    }
+                    request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
+                } else {
+                    request.setAttribute("resultados", "Producto no disponible");
+                    Tools.anadirMensaje(request, "El producto elegido no existe");
+                    request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
+                }
+            } catch (IntrusionException ex) {
+                request.setAttribute("resultados", "Intrusión detectada");
+                Tools.anadirMensaje(request, ex.getUserMessage());
+                request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
+            } catch (ValidationException ex) {
+                request.setAttribute("resultados", "Datos de formulario no válidos");
+                Tools.anadirMensaje(request, ex.getUserMessage());
+                request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
+            }
+        }
+    }
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.sendError(404);
+    }
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}

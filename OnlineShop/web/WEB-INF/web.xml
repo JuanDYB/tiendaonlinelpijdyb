@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!--##############SERVLETS##############-->
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>control.AuthServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOutServlet</servlet-name>
+        <servlet-class>control.LogOutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <servlet-class>admin.ChangePassServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>admin.AddProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProductServlet</servlet-name>
+        <servlet-class>admin.EditProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>admin.DeleteProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <servlet-class>productos.SearchProductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>control.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCarritoServlet</servlet-name>
+        <servlet-class>productos.AddCarritoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditAmountServlet</servlet-name>
+        <servlet-class>productos.EditAmountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <servlet-class>productos.DeleteCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCartServlet</servlet-name>
+        <servlet-class>productos.UpdateCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>productos.BuyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>admin.DeleteUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>admin.EditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserCompleteServlet</servlet-name>
+        <servlet-class>admin.EditUserCompleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PassRecoverServlet</servlet-name>
+        <servlet-class>control.PassRecoverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCommentServlet</servlet-name>
+        <servlet-class>admin.AddCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <servlet-class>admin.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCommentServlet</servlet-name>
+        <servlet-class>admin.EditCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <url-pattern>/admin/ChangePass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/admin/administration/addprod</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProductServlet</servlet-name>
+        <url-pattern>/admin/administration/editprod</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/admin/administration/delprod</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <url-pattern>/shop/search_prod</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCarritoServlet</servlet-name>
+        <url-pattern>/shop/addcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditAmountServlet</servlet-name>
+        <url-pattern>/shop/editcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCartServlet</servlet-name>
+        <url-pattern>/shop/delcart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCartServlet</servlet-name>
+        <url-pattern>/shop/updatecart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyServlet</servlet-name>
+        <url-pattern>/shop/buy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/admin/administration/deluser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/admin/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserCompleteServlet</servlet-name>
+        <url-pattern>/admin/administration/edituser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PassRecoverServlet</servlet-name>
+        <url-pattern>/recoverpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCommentServlet</servlet-name>
+        <url-pattern>/admin/newcomment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCommentServlet</servlet-name>
+        <url-pattern>/admin/administration/delcomment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCommentServlet</servlet-name>
+        <url-pattern>/admin/administration/editcomment</url-pattern>
+    </servlet-mapping>
+
+    <!--###########FILTRO##############-->
+
+    <!-- Filtro de registro de acciones (Setea las codificaciones) -->
+    <filter>
+        <filter-name>LogFilter</filter-name>
+        <filter-class>control.LogFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LogFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- Filtro de zona privada-->
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>admin.AdminFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <!-- Filtro para la zona de administracion -->
+    <filter>
+        <filter-name>AdministrationFilter</filter-name>
+        <filter-class>admin.AdministrationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdministrationFilter</filter-name>
+        <url-pattern>/admin/administration/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+
+    
+    <!--################LISTENERS################-->
+    
+    <!--Listener de guardado de sesion-->
+    <listener>
+        <description>HttpSessionListener</description>
+        <listener-class>control.SaveSessionListener</listener-class>
+    </listener>
+    
+    <!--Listener de inicio-->
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>control.StartListener</listener-class>
+    </listener>
+    
+    
+    <!--############PARAMETROS DE CONTEXTO#############-->
+    
+    <!-- Parametro de contexto - Metodo de persistencia -->
+    <context-param>
+        <param-name>persistenceMethod</param-name>
+        <param-value>pool</param-value>
+    </context-param>
+    <!-- Parametro de contexto - Archivo clientes - JNDIPool -->
+    <context-param>
+        <param-name>archivoDatos</param-name>
+        <param-value>jdbc/OnlineShop</param-value>
+        <!--<param-value>data.bin</param-value>-->
+    </context-param>
+    <!-- Parametro de contexto - Archivo productos - NombreBD -->
+    <context-param>
+        <param-name>archivoHistoriales</param-name>
+        <param-value>****</param-value>
+        <!--<param-value>history.bin</param-value>-->
+    </context-param>
+    <!-- Archivo de recuperación de carritos-->
+    <context-param>
+        <param-name>archivoRecuperacion</param-name>
+        <param-value>recover.bin</param-value>
+    </context-param>
+    <!-- Archivo de guardado de log-->
+    <context-param>
+        <param-name>archivoLog</param-name>
+        <param-value>log.txt</param-value>
+    </context-param>
+    
+    
+    <!-- Usuario administrador por defecto -->
+    <context-param>
+        <param-name>adminMail</param-name>
+        <param-value>admin@example.com</param-value>
+    </context-param>
+    <!-- Contraseña de administrador por defecto -->
+    <context-param>
+        <param-name>adminPass</param-name>
+        <param-value>Administrador</param-value>
+    </context-param>
+    
+    
+    <context-param>
+        <param-name>hostMail</param-name>
+        <param-value>*****</param-value>
+    </context-param>
+    <context-param>
+        <param-name>TSLMail</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mailPort</param-name>
+        <param-value>25</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mailUser</param-name>
+        <param-value>****</param-value>
+    </context-param>
+    <context-param>
+        <param-name>authMail</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mailFrom</param-name>
+        <param-value>*****</param-value>
+    </context-param>
+    <context-param>
+        <param-name>mailPass</param-name>
+        <param-value>****</param-value>
+    </context-param>
+    
+    
+    <!-- Pagina de inicio -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+    
+    <!-- Códigos de error -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/paginasError/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/paginasError/error500.jsp</location>
+    </error-page>
+    
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
+    
+    <resource-ref>
+        <res-ref-name>jdbc/OnlineShop</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+</web-app>

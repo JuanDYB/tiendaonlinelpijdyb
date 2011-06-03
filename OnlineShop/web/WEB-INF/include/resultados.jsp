@@ -1,0 +1,17 @@
+<%@page import="java.util.ArrayList"%>
+<%-- Solo se muestra si hay resultados de una operación que mostrar --%>
+        <% if (request.getAttribute("resultados")!= null){ %>
+        <p>
+            <span class="subHeader"><%= request.getAttribute("resultados") %></span>
+            <br />
+            <img src="/images/icons/information.png" alt="information" align="left" />
+        <ul style="margin-left: 4em">
+            <%ArrayList <String> listado = (ArrayList <String>) request.getAttribute("listaResultados");
+            for (String actual : listado){ %>
+            <li><%= actual %></li>
+            <% } %>
+            </ul>
+        </p>
+        <br />
+            <% } %>
+            

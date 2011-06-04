@@ -3,7 +3,6 @@ package control.productos;
 import modelo.Producto;
 import control.Tools;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,14 +16,7 @@ import persistencia.PersistenceInterface;
  * @author Juan Díez-Yanguas Barber
  */
 public class SearchProductServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         if (validateForm (request) == true){
@@ -37,9 +29,7 @@ public class SearchProductServlet extends HttpServlet {
 
             String term = request.getParameter("term");
             String destination = devolverCampo(request.getParameter("campo"));
-            Map <String, Producto> resultados = new HashMap <String, Producto> ();
-            
-            resultados = ((PersistenceInterface)request.getServletContext().getAttribute("persistence")).searchProd(destination, term);
+            Map <String, Producto> resultados = ((PersistenceInterface)request.getServletContext().getAttribute("persistence")).searchProd(destination, term);
             request.setAttribute("resultados", "Resultados de la búsqueda");
             if (resultados == null || resultados.size() <= 0){
                 Tools.anadirMensaje(request, "No se han encontrado coincidencias. Se mostrarán todos los productos");

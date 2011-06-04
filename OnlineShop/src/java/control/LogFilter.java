@@ -22,27 +22,13 @@ import persistencia.PersistenceInterface;
  */
 public class LogFilter implements Filter {
 
-    /**
-     *
-     * @param request The servlet request we are processing
-     * @param response The servlet response we are creating
-     * @param chain The filter chain we are processing
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet error occurs
-     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        HttpServletRequest modRequest = (HttpServletRequest) request;
-        
-        
-        Calendar cal = Calendar.getInstance(new Locale ("es", "ES"));
-        
-        String fechaHora = Tools.getDate();
-        
+        HttpServletRequest modRequest = (HttpServletRequest) request;                
+        String fechaHora = Tools.getDate();        
         String requestedURL = modRequest.getRequestURL().toString();
         String remoteAddr = modRequest.getRemoteAddr();
         String remoteHost = modRequest.getRemoteHost();
@@ -56,8 +42,6 @@ public class LogFilter implements Filter {
         if (ok == false){
             Logger.getLogger(LogFilter.class.getName()).log(Level.INFO, "No se ha guardado el registro en la BD");
         }
-        
-        
         
         chain.doFilter(request, response);
         
@@ -97,7 +81,5 @@ public class LogFilter implements Filter {
     @Override
     public void destroy() {
         
-    }
-        
-        
+    }    
 }

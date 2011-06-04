@@ -20,13 +20,6 @@ import persistencia.PersistenceInterface;
  */
 public class PassRecoverServlet extends HttpServlet {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (validateParam(request) == true) {
@@ -40,15 +33,13 @@ public class PassRecoverServlet extends HttpServlet {
                     request.setAttribute("resultados", "Usuario no encontrado");
                     Tools.anadirMensaje(request, "Ha intentado recuperar la contraseña de un usuario que no existe");
                 } else {
-                    SendMail mailConfig = (SendMail) request.getServletContext().getAttribute("EmailSend");
-                    //Generamos contraseña y su hash
                     String newPass = RandomStringUtils.randomAlphanumeric(19);
                     String newPassHash = Tools.MD5Signature(newPass + newPass.toLowerCase());
                     Usuario newUser = new Usuario(user.getNombre(), user.getDir(), user.getMail(), newPassHash, user.getPermisos());
                     
                     boolean cambioPass = persistencia.updateUser(user.getMail(), newUser);
                     if (cambioPass == true){
-                        boolean mail = EnviarMail(request, user, newPass);
+                        boolean mail = enviarMail(request, user, newPass);
                         if (mail == false){
                             request.setAttribute("resultados", "Ocurrió un error");
                             Tools.anadirMensaje(request, "Se intentó enviar su contraseña por email pero no fue posible, inténtelo de nuevo, disculpe las molestias");
@@ -76,7 +67,7 @@ public class PassRecoverServlet extends HttpServlet {
         }
     }
 
-    protected boolean EnviarMail(HttpServletRequest request, Usuario user, String newPass) {
+    protected boolean enviarMail(HttpServletRequest request, Usuario user, String newPass) {
         SendMail mailConfig = (SendMail) request.getServletContext().getAttribute("EmailSend");
         Session mailSession = mailConfig.startSession((Authenticator) request.getServletContext().getAttribute("autorizacionMail"));
 

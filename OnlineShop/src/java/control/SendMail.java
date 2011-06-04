@@ -3,7 +3,6 @@ package control;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Properties;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Authenticator;
@@ -88,7 +87,6 @@ public class SendMail {
     @Override
         public PasswordAuthentication getPasswordAuthentication() {
            String user = config.getProperty("mail.smtp.user");
-           String password = pass;
            return new PasswordAuthentication(user, pass);
         }
     }

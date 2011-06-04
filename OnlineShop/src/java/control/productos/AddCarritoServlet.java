@@ -1,7 +1,7 @@
-package productos;
+package control.productos;
 
-import beans.Carrito;
-import beans.Producto;
+import modelo.Carrito;
+import modelo.Producto;
 import control.Tools;
 import java.io.IOException;
 import javax.servlet.ServletException;

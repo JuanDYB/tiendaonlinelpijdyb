@@ -1,6 +1,6 @@
 package control;
 
-import beans.Usuario;
+import modelo.Usuario;
 import persistencia.PersistenceFactory;
 import persistencia.PersistenceInterface;
 import java.util.logging.Level;

@@ -1,7 +1,8 @@
-package admin;
+package control.admin;
 
 import control.Tools;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +11,9 @@ import persistencia.PersistenceInterface;
 
 /**
  *
- * @author Juan Díez-Yanguas Barber
+ * @author JuanDYB
  */
-public class DeleteCommentServlet extends HttpServlet {
+public class DeleteProductServlet extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -23,30 +24,32 @@ public class DeleteCommentServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String back = (String) request.getSession().getAttribute("backTOURL");
-        request.getSession().removeAttribute("backTOURL");
-        if (validateForm(request) == false){
+        if (validar(request) == true) {
+            request.setAttribute("resultados", "Resultados de la operación");
+            PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+            boolean ok = persistencia.delProduct(request.getParameter("prod"));
+
+            if (ok == true) {
+                Tools.anadirMensaje(request, "El producto ha sido borrado correctamente");
+            } else {
+                Tools.anadirMensaje(request, "Ha ocurrido un error borrando el producto");
+            }
+            
+            //Borra la imagen si existe
+            if (Tools.fileExists(request.getServletContext().getRealPath("/images/products/" + request.getParameter("cod"))) == true) {
+                boolean image = Tools.borrarImagenProd(request.getServletContext().getRealPath("/images/products/" + request.getParameter("cod")));
+                if (image == true) {
+                    Tools.anadirMensaje(request, "Se ha borrado correctamente la imagen del producto");
+                } else {
+                    Tools.anadirMensaje(request, "Hubo un error borrando la imagen del producto");
+                }
+            }
+            
+            RequestDispatcher borrado = request.getRequestDispatcher("/admin/administration/products_administration.jsp");
+            borrado.forward(request, response);
+        } else {
             response.sendError(404);
-            return;
         }
-        String codigoComentario = request.getParameter("cod");
-        PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
-        boolean ok = persistencia.deleteComment(codigoComentario);
-        if (ok == true){
-            request.setAttribute("resultados", "Operación completada");
-            Tools.anadirMensaje(request, "El comentario se ha borrado correctamente");
-        }else{
-            request.setAttribute("resultados", "Operación fallida");
-            Tools.anadirMensaje(request, "Ha ocurrido un error borrando el comentario, disculpe las molestias");
-        }
-        request.getRequestDispatcher("/shop/viewprod.jsp?" + back).forward(request, response); 
-    }
-    
-    protected boolean validateForm (HttpServletRequest request){
-        if (request.getParameterMap().size() >= 1 && request.getParameter("cod") != null){
-            return Tools.validateUUID(request.getParameter("cod"));
-        }
-        return false;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,8 +76,15 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         response.sendError(404);
+    }
+
+    protected boolean validar(HttpServletRequest request) {
+        if (request.getParameterMap().size() >= 1 && request.getParameter("prod") != null) {
+            return Tools.validateUUID(request.getParameter("prod"));
+        } else {
+            return false;
+        }
     }
 
     /** 

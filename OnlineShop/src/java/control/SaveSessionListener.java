@@ -1,7 +1,7 @@
 package control;
 
-import beans.Carrito;
-import beans.Usuario;
+import modelo.Carrito;
+import modelo.Usuario;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;

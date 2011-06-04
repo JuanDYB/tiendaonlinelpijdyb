@@ -1,6 +1,6 @@
-package productos;
+package control.productos;
 
-import beans.Producto;
+import modelo.Producto;
 import control.Tools;
 import java.io.IOException;
 import java.util.HashMap;

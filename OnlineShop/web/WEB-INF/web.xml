@@ -11,23 +11,23 @@
     </servlet>
     <servlet>
         <servlet-name>ChangePassServlet</servlet-name>
-        <servlet-class>admin.ChangePassServlet</servlet-class>
+        <servlet-class>control.admin.ChangePassServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
-        <servlet-class>admin.AddProductServlet</servlet-class>
+        <servlet-class>control.admin.AddProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditProductServlet</servlet-name>
-        <servlet-class>admin.EditProductServlet</servlet-class>
+        <servlet-class>control.admin.EditProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteProductServlet</servlet-name>
-        <servlet-class>admin.DeleteProductServlet</servlet-class>
+        <servlet-class>control.admin.DeleteProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchProductServlet</servlet-name>
-        <servlet-class>productos.SearchProductServlet</servlet-class>
+        <servlet-class>control.productos.SearchProductServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
@@ -35,35 +35,35 @@
     </servlet>
     <servlet>
         <servlet-name>AddCarritoServlet</servlet-name>
-        <servlet-class>productos.AddCarritoServlet</servlet-class>
+        <servlet-class>control.productos.AddCarritoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditAmountServlet</servlet-name>
-        <servlet-class>productos.EditAmountServlet</servlet-class>
+        <servlet-class>control.productos.EditAmountServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCartServlet</servlet-name>
-        <servlet-class>productos.DeleteCartServlet</servlet-class>
+        <servlet-class>control.productos.DeleteCartServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateCartServlet</servlet-name>
-        <servlet-class>productos.UpdateCartServlet</servlet-class>
+        <servlet-class>control.productos.UpdateCartServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>BuyServlet</servlet-name>
-        <servlet-class>productos.BuyServlet</servlet-class>
+        <servlet-class>control.productos.BuyServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteUserServlet</servlet-name>
-        <servlet-class>admin.DeleteUserServlet</servlet-class>
+        <servlet-class>control.admin.DeleteUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUserServlet</servlet-name>
-        <servlet-class>admin.EditUserServlet</servlet-class>
+        <servlet-class>control.admin.EditUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditUserCompleteServlet</servlet-name>
-        <servlet-class>admin.EditUserCompleteServlet</servlet-class>
+        <servlet-class>control.admin.EditUserCompleteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PassRecoverServlet</servlet-name>
@@ -71,15 +71,15 @@
     </servlet>
     <servlet>
         <servlet-name>AddCommentServlet</servlet-name>
-        <servlet-class>admin.AddCommentServlet</servlet-class>
+        <servlet-class>control.admin.AddCommentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteCommentServlet</servlet-name>
-        <servlet-class>admin.DeleteCommentServlet</servlet-class>
+        <servlet-class>control.admin.DeleteCommentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EditCommentServlet</servlet-name>
-        <servlet-class>admin.EditCommentServlet</servlet-class>
+        <servlet-class>control.admin.EditCommentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ChangePassServlet</servlet-name>
@@ -93,7 +93,7 @@
         <servlet-name>LogOutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AddProductServlet</servlet-name>
         <url-pattern>/admin/administration/addprod</url-pattern>
     </servlet-mapping>
@@ -161,9 +161,7 @@
         <servlet-name>EditCommentServlet</servlet-name>
         <url-pattern>/admin/administration/editcomment</url-pattern>
     </servlet-mapping>
-
     <!--###########FILTRO##############-->
-
     <!-- Filtro de registro de acciones (Setea las codificaciones) -->
     <filter>
         <filter-name>LogFilter</filter-name>
@@ -176,7 +174,7 @@
     <!-- Filtro de zona privada-->
     <filter>
         <filter-name>AdminFilter</filter-name>
-        <filter-class>admin.AdminFilter</filter-class>
+        <filter-class>control.admin.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
@@ -189,7 +187,7 @@
     <!-- Filtro para la zona de administracion -->
     <filter>
         <filter-name>AdministrationFilter</filter-name>
-        <filter-class>admin.AdministrationFilter</filter-class>
+        <filter-class>control.admin.AdministrationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>AdministrationFilter</filter-name>
@@ -199,25 +197,18 @@
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
-
-    
     <!--################LISTENERS################-->
-    
     <!--Listener de guardado de sesion-->
     <listener>
         <description>HttpSessionListener</description>
         <listener-class>control.SaveSessionListener</listener-class>
     </listener>
-    
     <!--Listener de inicio-->
     <listener>
         <description>ServletContextListener</description>
         <listener-class>control.StartListener</listener-class>
     </listener>
-    
-    
     <!--############PARAMETROS DE CONTEXTO#############-->
-    
     <!-- Parametro de contexto - Metodo de persistencia -->
     <context-param>
         <param-name>persistenceMethod</param-name>
@@ -245,8 +236,6 @@
         <param-name>archivoLog</param-name>
         <param-value>log.txt</param-value>
     </context-param>
-    
-    
     <!-- Usuario administrador por defecto -->
     <context-param>
         <param-name>adminMail</param-name>
@@ -257,8 +246,6 @@
         <param-name>adminPass</param-name>
         <param-value>Administrador</param-value>
     </context-param>
-    
-    
     <context-param>
         <param-name>hostMail</param-name>
         <param-value>*****</param-value>
@@ -287,14 +274,10 @@
         <param-name>mailPass</param-name>
         <param-value>****</param-value>
     </context-param>
-    
-    
     <!-- Pagina de inicio -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
-    
     <!-- Códigos de error -->
     <error-page>
         <error-code>404</error-code>
@@ -304,13 +287,9 @@
         <error-code>500</error-code>
         <location>/WEB-INF/paginasError/error500.jsp</location>
     </error-page>
-    
-    
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
-    
-    
     <resource-ref>
         <res-ref-name>jdbc/OnlineShop</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>

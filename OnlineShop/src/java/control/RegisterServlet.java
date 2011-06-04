@@ -1,6 +1,6 @@
 package control;
 
-import beans.Usuario;
+import modelo.Usuario;
 import java.io.IOException;
 import javax.mail.Authenticator;
 import javax.mail.Session;

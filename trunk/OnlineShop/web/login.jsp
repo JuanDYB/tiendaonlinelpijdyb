@@ -1,4 +1,4 @@
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.Usuario"%>
 <%@page import="persistencia.PersistenceInterface"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 

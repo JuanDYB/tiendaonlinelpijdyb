@@ -1,7 +1,7 @@
 <%@page import="control.Tools"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="beans.Comentario"%>
-<%@page import="beans.Usuario"%>
+<%@page import="modelo.Comentario"%>
+<%@page import="modelo.Usuario"%>
 
 <%
 Usuario user = null;

@@ -1,7 +1,7 @@
 <%@page import="org.owasp.esapi.errors.ValidationException"%>
 <%@page import="persistencia.PersistenceInterface"%>
 <%@page import="control.Tools"%>
-<%@page import="beans.Producto"%>
+<%@page import="modelo.Producto"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%if (validar (request) == false){
     response.sendError(404);

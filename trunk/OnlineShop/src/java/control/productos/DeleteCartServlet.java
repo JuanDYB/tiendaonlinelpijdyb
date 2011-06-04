@@ -1,4 +1,4 @@
-package productos;
+package control.productos;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

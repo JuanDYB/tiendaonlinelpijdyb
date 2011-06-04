@@ -1,6 +1,6 @@
-package admin;
+package control.admin;
 
-import beans.Usuario;
+import modelo.Usuario;
 import control.Tools;
 import java.io.IOException;
 import javax.servlet.ServletException;

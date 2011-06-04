@@ -1,6 +1,6 @@
-package admin;
+package control.admin;
 
-import beans.Comentario;
+import modelo.Comentario;
 import control.Tools;
 import java.io.IOException;
 import java.util.Calendar;

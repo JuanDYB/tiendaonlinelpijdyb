@@ -1,6 +1,6 @@
-package admin;
+package control.admin;
 
-import beans.Usuario;
+import modelo.Usuario;
 import control.Tools;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import persistencia.PersistenceInterface;
  *
  * @author Juan Díez-Yanguas Barber
  */
-public class EditUserServlet extends HttpServlet {
+public class EditUserCompleteServlet extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,40 +29,57 @@ public class EditUserServlet extends HttpServlet {
         if (validateForm(request) == true) {
             try {
                 PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
-                Usuario user = persistencia.getUser((String) request.getSession().getAttribute("usuario"));
-                String nombre = Tools.validateName(request.getParameter("name"));
+                String mail = Tools.validateEmail(request.getParameter("mail"));
+                String nombre = Tools.validateName(request.getParameter("nombre"));
                 String dir = Tools.validateAdress(request.getParameter("dir"));
-                
-                Usuario newUser = new Usuario (nombre, dir, user.getMail(), user.getPass(), user.getPermisos());
-                boolean ok = persistencia.updateUser(user.getMail(), newUser);
-                if (ok == true){
-                    request.setAttribute("resultados", "Resultados de la operación");
-                    Tools.anadirMensaje(request, "Los datos han sido modificados correctamente");
-                }else{
-                    request.setAttribute("resultados", "Resultados de la operación");
-                    Tools.anadirMensaje(request, "Ha ocurrido un error modificando el usuario");
+                char perm = request.getParameter("perm").charAt(0);
+
+                Usuario user = persistencia.getUser(mail);
+                if (user == null) {
+                    request.setAttribute("resultados", "Usuario no encontrado");
+                    Tools.anadirMensaje(request, "El usuario que quiere editar no ha sido encontrado");
+                } else {
+                    Usuario updateUser = new Usuario(nombre, dir, user.getMail(), user.getPass(), perm);
+
+                    if (persistencia.anyAdmin() == 1 && user.getPermisos() == 'a' && updateUser.getPermisos() == 'c') {
+                        request.setAttribute("resultados", "Error editando permisos");
+                        Tools.anadirMensaje(request, "Este usuario es el último administrador, no puede cambiar sus permisos");
+                    } else {
+
+                        boolean ok = persistencia.updateUser(user.getMail(), updateUser);
+                        if (ok == true) {
+                            request.setAttribute("resultados", "Usuario editado correctamente");
+                            Tools.anadirMensaje(request, "El usuario ha sido editado correctamente");
+                        } else {
+                            request.setAttribute("resultados", "Operación fallida");
+                            Tools.anadirMensaje(request, "Ocurrió un error editando el usuario, es posible que el usuario que desea editar no exista");
+                        }
+                    }
                 }
+
 
             } catch (IntrusionException ex) {
                 request.setAttribute("resultados", "Intrusión detectada");
                 Tools.anadirMensaje(request, ex.getUserMessage());
             } catch (ValidationException ex) {
-                request.setAttribute("resultados", "Datos de formulario inválidos");
+                request.setAttribute("resultados", "Validación de formulario fallida");
                 Tools.anadirMensaje(request, ex.getUserMessage());
-            }finally{
-                request.getRequestDispatcher("/admin/preferences.jsp").forward(request, response);
+            } finally {
+                request.getRequestDispatcher("/admin/administration/user_administration.jsp").forward(request, response);
             }
+
         } else {
             request.setAttribute("resultados", "Formulario incorrecto");
-            Tools.anadirMensaje(request, "El formulario enviado no es correcto");
-            request.getRequestDispatcher("/admin/preferences.jsp").forward(request, response);
+            Tools.anadirMensaje(request, "El formulario recibido no es correcto");
+            request.getRequestDispatcher("/admin/administration/user_administration.jsp").forward(request, response);
         }
 
     }
 
     protected boolean validateForm(HttpServletRequest request) {
-        if (request.getParameterMap().size() >= 3 && request.getParameter("name") != null && request.getParameter("dir") != null
-                && request.getParameter("changeData") != null) {
+        if (request.getParameterMap().size() >= 5 && request.getParameter("nombre") != null && request.getParameter("dir") != null
+                && request.getParameter("perm") != null && request.getParameter("edit") != null
+                && request.getParameter("mail") != null && Tools.validatePerm(request.getParameter("perm").charAt(0)) == true) {
             return true;
         } else {
             return false;

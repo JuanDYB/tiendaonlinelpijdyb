@@ -1,8 +1,9 @@
-package admin;
+package control.admin;
 
-import beans.Usuario;
+import modelo.Usuario;
 import control.Tools;
 import java.io.IOException;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,7 @@ import persistencia.PersistenceInterface;
  *
  * @author Juan Díez-Yanguas Barber
  */
-public class EditUserCompleteServlet extends HttpServlet {
+public class ChangePassServlet extends HttpServlet {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,59 +30,57 @@ public class EditUserCompleteServlet extends HttpServlet {
         if (validateForm(request) == true) {
             try {
                 PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
-                String mail = Tools.validateEmail(request.getParameter("mail"));
-                String nombre = Tools.validateName(request.getParameter("nombre"));
-                String dir = Tools.validateAdress(request.getParameter("dir"));
-                char perm = request.getParameter("perm").charAt(0);
 
-                Usuario user = persistencia.getUser(mail);
-                if (user == null) {
-                    request.setAttribute("resultados", "Usuario no encontrado");
-                    Tools.anadirMensaje(request, "El usuario que quiere editar no ha sido encontrado");
-                } else {
-                    Usuario updateUser = new Usuario(nombre, dir, user.getMail(), user.getPass(), perm);
+                String prevPass = Tools.validatePass(request.getParameter("prevPass"));
+                prevPass = Tools.MD5Signature(prevPass + prevPass.toLowerCase());
+                String newPass = Tools.validatePass(request.getParameter("newPass"));
+                String repeatPass = Tools.validatePass(request.getParameter("repeatPass"));
+                Usuario user = persistencia.getUser((String)request.getSession().getAttribute("usuario"));
 
-                    if (persistencia.anyAdmin() == 1 && user.getPermisos() == 'a' && updateUser.getPermisos() == 'c') {
-                        request.setAttribute("resultados", "Error editando permisos");
-                        Tools.anadirMensaje(request, "Este usuario es el último administrador, no puede cambiar sus permisos");
+                if (user != null) {
+                    if (prevPass.equals(user.getPass()) == false) {
+                        Tools.anadirMensaje(request, "La contraseña que ha introducido no es correcta");
+                    } else if (newPass.equals(repeatPass) == false) {
+                        Tools.anadirMensaje(request, "La contraseña no coincide con la repetición");
                     } else {
-
-                        boolean ok = persistencia.updateUser(user.getMail(), updateUser);
-                        if (ok == true) {
-                            request.setAttribute("resultados", "Usuario editado correctamente");
-                            Tools.anadirMensaje(request, "El usuario ha sido editado correctamente");
-                        } else {
-                            request.setAttribute("resultados", "Operación fallida");
-                            Tools.anadirMensaje(request, "Ocurrió un error editando el usuario, es posible que el usuario que desea editar no exista");
+                        String huellaPass = Tools.MD5Signature(newPass + newPass.toLowerCase());
+                        Usuario newUser = new Usuario (user.getNombre(), user.getDir(), user.getMail(), huellaPass, user.getPermisos());
+                        boolean ok = persistencia.updateUser(user.getMail(), newUser);
+                        if (ok == true){
+                            Tools.anadirMensaje(request, "La contraseña ha sido cambiada con éxito");
+                        }else{
+                            Tools.anadirMensaje(request, "Ha ocurrido un error cambiando la contraseña");
                         }
                     }
+                } else {
+                    request.setAttribute("errorSesion", "");
+                    request.setAttribute("resultados", "No se encontro el usuario de la sesion");
+                    Tools.anadirMensaje(request, "No se ha encontrado el usuario activo y se ha cerrado la sesion");
+                    request.getRequestDispatcher("/logout").forward(request, response);
                 }
-
-
             } catch (IntrusionException ex) {
                 request.setAttribute("resultados", "Intrusión detectada");
                 Tools.anadirMensaje(request, ex.getUserMessage());
+                request.getRequestDispatcher("/admin/preferences.jsp").forward(request, response);
             } catch (ValidationException ex) {
-                request.setAttribute("resultados", "Validación de formulario fallida");
+                request.setAttribute("resultados", "Datos de formulario inválidos");
                 Tools.anadirMensaje(request, ex.getUserMessage());
-            } finally {
-                request.getRequestDispatcher("/admin/administration/user_administration.jsp").forward(request, response);
+                request.getRequestDispatcher("/admin/preferences.jsp").forward(request, response);
             }
 
-        } else {
-            request.setAttribute("resultados", "Formulario incorrecto");
-            Tools.anadirMensaje(request, "El formulario recibido no es correcto");
-            request.getRequestDispatcher("/admin/administration/user_administration.jsp").forward(request, response);
         }
+        request.setAttribute("resultados", "Resultados de la operación");
+        request.getRequestDispatcher("/admin/preferences.jsp").forward(request, response);
 
     }
 
     protected boolean validateForm(HttpServletRequest request) {
-        if (request.getParameterMap().size() >= 5 && request.getParameter("nombre") != null && request.getParameter("dir") != null
-                && request.getParameter("perm") != null && request.getParameter("edit") != null
-                && request.getParameter("mail") != null && Tools.validatePerm(request.getParameter("perm").charAt(0)) == true) {
+        Map<String, String[]> parameters = request.getParameterMap();
+        if (parameters.size() == 4 && parameters.containsKey("prevPass")
+                && parameters.containsKey("newPass") && parameters.containsKey("repeatPass") && parameters.containsKey("changePass")) {
             return true;
         } else {
+            Tools.anadirMensaje(request, "El formulario enviado no tiene la forma correta");
             return false;
         }
     }

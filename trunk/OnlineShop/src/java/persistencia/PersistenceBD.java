@@ -1,9 +1,9 @@
 package persistencia;
 
-import beans.Carrito;
-import beans.Comentario;
-import beans.Usuario;
-import beans.Producto;
+import modelo.Carrito;
+import modelo.Comentario;
+import modelo.Usuario;
+import modelo.Producto;
 import control.Tools;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

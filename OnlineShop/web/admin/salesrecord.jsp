@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="control.Tools"%>
-<%@page import="beans.Carrito"%>
+<%@page import="modelo.Carrito"%>
 <%@page import="java.util.Map"%>
 <%@page import="persistencia.PersistenceInterface"%>
 <%@ page contentType="text/html; charset=UTF-8" %>

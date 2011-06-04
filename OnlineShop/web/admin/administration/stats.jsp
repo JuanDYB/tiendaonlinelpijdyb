@@ -1,4 +1,4 @@
-<%@page import="beans.Carrito"%>
+<%@page import="modelo.Carrito"%>
 <%@page import="control.StatGenerator"%>
 <%@page import="persistencia.PersistenceInterface"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
@@ -76,7 +76,7 @@
                     <% } else {%>
                     <p>
                         <span class="header">Ha ocurrido un error</span>
-                        Ha ocurrido un error con la petición y no se mostrarás las estadísticas, disculpe las molestias.
+                        Ha ocurrido un error con la petición y no se mostrarán las estadísticas, disculpe las molestias.
                         <br />
                         Puede recargar la página si desea volverlo a intentar de nuevo.
                     </p>

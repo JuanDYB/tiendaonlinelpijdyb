@@ -1,4 +1,4 @@
-<%@page import="beans.Comentario"%>
+<%@page import="modelo.Comentario"%>
 <%@page import="control.Tools"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <% if (validate (request) == false){

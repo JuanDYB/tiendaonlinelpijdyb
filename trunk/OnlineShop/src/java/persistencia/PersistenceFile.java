@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class PersistenceFile implements PersistenceInterface {
 
-    private static PersistenceFile persistence;
+    private static volatile PersistenceFile persistence;//@cambio
     private String file;
     private String historiales;
     private String fileLog;
@@ -378,8 +378,7 @@ public class PersistenceFile implements PersistenceInterface {
 
         if (carros.isEmpty()) {
             File archivo = new File(recoverFile);
-            archivo.delete();
-            return true;
+            return archivo.delete();//@cambio
         }
 
         for (Carrito cart : carros.values()) {

@@ -25,6 +25,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 //@contador numero inicial de líneas en la clase: 987
+//@contador después de modificaciones: 944
 
 /**
  * Clase que sigue el modelo singleton que impide tener más de un objeto de esa clase en la aplicación

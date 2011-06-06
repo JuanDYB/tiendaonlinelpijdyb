@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class PersistenceFile implements PersistenceInterface {
 
-    private static volatile PersistenceFile persistence;//@cambio
+    private static final PersistenceFile persistence = new PersistenceFile();//@cambio
     private String file;
     private String historiales;
     private String fileLog;
@@ -46,13 +46,10 @@ public class PersistenceFile implements PersistenceInterface {
     private final Object lockComentarios = new Object();
     private final Object lockLog = new Object();
 
-    PersistenceFile() {
+    private PersistenceFile() {
     }
 
     public static PersistenceFile getInstance() {
-        if (persistence == null) {
-            persistence = new PersistenceFile();
-        }
         return persistence;
     }
 
@@ -154,16 +151,17 @@ public class PersistenceFile implements PersistenceInterface {
                 productos.remove(codigo);
             }
         }
-        ArrayList <String> borradoComentarios = new ArrayList <String> ();
-        synchronized(lockComentarios){
-            for (Comentario comment : comentarios.values()){
-                if (comment.getCodigoProducto().equals(codigo)){
-//                    comentarios.remove(comment.getCodigoComentario());
+        
+        ArrayList<String> borradoComentarios = new ArrayList<String>();
+        synchronized (lockComentarios) {
+            for (Comentario comment : comentarios.values()) {
+                if (comment.getCodigoProducto().equals(codigo)) {
                     borradoComentarios.add(comment.getCodigoComentario());
                 }
             }
         }
-        for (int i = 0; i < borradoComentarios.size(); i++){
+        
+        for (int i = 0; i < borradoComentarios.size(); i++) {
             comentarios.remove(borradoComentarios.get(i));
         }
         return true;

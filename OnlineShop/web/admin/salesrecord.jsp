@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Histórico de ventas</title>
+<title>Hist&oacute;rico de ventas</title>
 
 <link rel="stylesheet" type="text/css" href="/css/screen_yellow.css" media="screen, tv, projection" />
 </head>
@@ -38,7 +38,7 @@
             &nbsp;&nbsp;
             <select name="searchField">
                 <option value="name">Nombre</option>
-                <option value="dir">Dirección</option>
+                <option value="dir">Direcci&oacute;n</option>
                 <option value="mail">Email</option>
             </select>
 

@@ -30,24 +30,24 @@
         <%@include file="/WEB-INF/include/resultados.jsp" %>
 
     <p>
-        <span class="header">Compra realizada con éxito</span><br /><br />
+        <span class="header">Compra realizada con &eacute;xito</span><br /><br />
     </p>
             <p>
                 <span class="subHeader">Detalles de la compra</span><br />
                 <ul>
                     <li><b>Nombre: </b><%= request.getParameter("name") %></li>
-                    <li><b>Dirección: </b><%= request.getParameter("dir") %></li>
+                    <li><b>Direcci&oacute;n: </b><%= request.getParameter("dir") %></li>
                     <li><b>Email: </b><%= request.getParameter("email") %></li>
                     <li><b>Forma de pago: </b><%= request.getAttribute("formPago") %></li>
                 </ul>
             </p>
             <p>
-        <span class="subHeader">Relación de productos</span>
+        <span class="subHeader">Relaci&oacute;n de productos</span>
         <% Carrito carro = (Carrito) session.getAttribute("carrito");
         if (carro == null){%>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else if (carro.getArticulos().size() == 0){ %>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else { %>
         <p>
             <table border="0" align="center" width="90%">

@@ -1040,27 +1040,27 @@ Vanadium.setupValidatorTypes = function() {
       if (Vanadium.validators_types['empty'].test(v)) return true;
       var f = parseFloat(v);
       return (!isNaN(f) && f.toString() == v && Math.round(f) == f);
-    }, 'Introduzca un numero entero válido'],
+    }, 'Introduzca un numero entero v&aacute;lido'],
     //
     ['number', function(v) {
       return Vanadium.validators_types['empty'].test(v) || (!isNaN(v) && !/^\s+$/.test(v));
-    }, 'Introduzca un número válido para este campo (usar punto para decimales)'],
+    }, 'Introduzca un n&uacute;mero v&aacute;lido para este campo (usar punto para decimales)'],
     //
     ['float', function(v) {
       return Vanadium.validators_types['empty'].test(v) || (!isNaN(v) && !/^\s+$/.test(v));
-    }, 'Introduzca un número válido para este campo'],
+    }, 'Introduzca un n&uacute;mero v&aacute;lido para este campo'],
     //
     ['digits', function(v) {
       return Vanadium.validators_types['empty'].test(v) || !/[^\d]/.test(v);
-    }, 'Introduzca un número válido, no decimales'],
+    }, 'Introduzca un n&uacute;mero v&aacute;lido, no decimales'],
     //
     ['alpha', function (v) {
       return Vanadium.validators_types['empty'].test(v) || /^[a-zA-Z \-\u00C0-\u00FF\u0100-\u017E\u0391-\u03D6]+$/.test(v)   //% C0 - FF (� - �); 100 - 17E (? - ?); 391 - 3D6 (? - ?)
-    }, 'Introduzca un nombre válido'],
+    }, 'Introduzca un nombre v&aacute;lido'],
     //
     ['dir', function (v) {
       return Vanadium.validators_types['empty'].test(v) || /^[a-zA-Z0-9 \,\º\-\u00C0-\u00FF\u0100-\u017E\u0391-\u03D6]+\ [0-9]{5}-[a-zA-Z \-\u00C0-\u00FF\u0100-\u017E\u0391-\u03D6]+$/.test(v)   //% C0 - FF (� - �); 100 - 17E (? - ?); 391 - 3D6 (? - ?)
-    }, 'Introduzca una dirección válida'],
+    }, 'Introduzca una direcci&oacute;n v&aacute;lida'],
     //
     ['asciialpha', function (v) {
       return Vanadium.validators_types['empty'].test(v) || /^[a-zA-Z]+$/.test(v)   //% C0 - FF (� - �); 100 - 17E (? - ?); 391 - 3D6 (? - ?)
@@ -1078,7 +1078,7 @@ Vanadium.setupValidatorTypes = function() {
       return (Vanadium.validators_types['empty'].test(v)
               ||
               /\w{1,}[@][\w\-]{1,}([.]([\w\-]{1,})){1,3}$/.test(v))
-    }, 'Introduzca una dirección de email válida. Ejemplo: juan@dominio.com'],
+    }, 'Introduzca una direcci&oacute;n de email v&aacute;lida. Ejemplo: juan@dominio.com'],
     //
     ['url', function (v) {
       return Vanadium.validators_types['empty'].test(v) || /^(http|https|ftp):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(:(\d+))?\/?/i.test(v)
@@ -1168,7 +1168,7 @@ Vanadium.setupValidatorTypes = function() {
       function (_v, p) {
         var exemplar = document.getElementById(p);
         if (exemplar)
-          return 'La repetición no coincide con la contraseña';
+          return 'La repetici&oacute;n no coincide con la contrase&ntilde;a';
         else
           return '¡No hay muestra para comparar!'
       },

@@ -31,7 +31,7 @@
             Ha ocurrido un error interno en el servidor, disculpe las molestias
             <br />
             <br />
-            <a href="/index.jsp">Volver a la página de inicio</a>
+            <a href="/index.jsp">Volver a la p&aacute;gina de inicio</a>
             <br /><br /><br /><br /><br /><br /><br />
         </p>
 

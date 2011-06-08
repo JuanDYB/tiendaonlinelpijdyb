@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Estadísticas</title>
+        <title>Estad&iacute;sticas</title>
 
         <link rel="stylesheet" type="text/css" href="/css/screen_yellow.css" media="screen, tv, projection" />
     </head>
@@ -36,18 +36,18 @@
                         ArrayList<Carrito> historial = persistencia.requestSalesRecord("1", "1");
                         if (historial != null) {%>
                     <p>
-                        <span class="header" >Estadísticas de ventas</span>
+                        <span class="header" >Estad&iacute;sticas de ventas</span>
                     </p>
                     <% StatGenerator ventasSemana = new StatGenerator(historial);
                         if (ventasSemana.graficoNumVentasSemana(application.getRealPath("/images/stats/ventasSemana.jpg")) == true) {%>
 
-                    <p><span class="headerTable" style="text-align: center" >Número de compras por dias de la semana</span></p>
+                    <p><span class="headerTable" style="text-align: center" >N&uacute;mero de compras por dias de la semana</span></p>
                     <center><img src="/images/stats/ventasSemana.jpg" alt="ventas por dia" /></center>
                     <br />
 
                     <% } else {%>
 
-                    <p>Error generando el gráfico</p>
+                    <p>Error generando el gr&aacute;fico</p>
 
                     <% }%>
 
@@ -59,7 +59,7 @@
                     <br />
 
                     <% } else {%>
-                    <p>Error generando el gráfico</p>
+                    <p>Error generando el gr&aacute;fico</p>
                     <% }%>
 
                     <% StatGenerator procentajeProdDia = new StatGenerator(historial);
@@ -70,15 +70,15 @@
                     <br />
 
                     <% } else {%>
-                    <p>Error generando el gráfico</p>
+                    <p>Error generando el gr&aacute;fico</p>
                     <% }%>
 
                     <% } else {%>
                     <p>
                         <span class="header">Ha ocurrido un error</span>
-                        Ha ocurrido un error con la petición y no se mostrarán las estadísticas, disculpe las molestias.
+                        Ha ocurrido un error con la petici&oacute;n y no se mostrar&aacute;n las estad&iacute;sticas, disculpe las molestias.
                         <br />
-                        Puede recargar la página si desea volverlo a intentar de nuevo.
+                        Puede recargar la p&aacute;gina si desea volverlo a intentar de nuevo.
                     </p>
                     <% }%>
 

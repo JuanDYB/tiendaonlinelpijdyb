@@ -38,9 +38,9 @@
         <span class="header">Carrito de la compra</span>
         <% Carrito carro = (Carrito) session.getAttribute("carrito");
         if (carro == null){%>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else if (carro.getArticulos().size() == 0){ %>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else { %>
         <table border ="0" align="center" width="90%">
             <tr class="headerTable">

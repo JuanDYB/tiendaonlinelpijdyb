@@ -26,7 +26,7 @@
     
      <p>
         <span class="header">Acerca de</span>
-        Aplicación web desarrollada por Juan Díez-Yanguas Barber
+        Aplicaci&oacute;n web desarrollada por Juan D&iacute;ez-Yanguas Barber
      </p>
         
       

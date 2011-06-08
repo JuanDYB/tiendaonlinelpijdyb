@@ -86,7 +86,7 @@
             <input type="text" name="price" maxlength="10" class=":number :required :only_on_blur" <%= precio %> /><br /><br />
             <b>Unidades en stock</b> <br />
             <input type="text" name="stock" maxlength="5" class=":digits :required :only_on_blur" <%= stock %> /><br /><br />
-            <b>Descripción corta</b> <br />
+            <b>Descripci&oacute;n corta</b> <br />
             <input type="text" name="desc" maxlength="100" class=":required :only_on_blur" <%= descripcion %> /><br /><br />
             Imagen del producto (opcional)<br />
             <% if (Tools.fileExists(request.getServletContext().getRealPath("/images/products/" + codigo)) == true){ %>
@@ -102,7 +102,7 @@
             <p>
                 <span class="header">Producto no encontrado</span><br />
                 Ha ocurrido un error editando el producto. El producto no ha sido encontrado<br /><br />
-                <a href="/admin/administration/products_administration.jsp">Administración de productos</a>
+                <a href="/admin/administration/products_administration.jsp">Administraci&oacute;n de productos</a>
             </p>
             <% } %>
       <!-- Crea las esquinas redondeadas abajo -->

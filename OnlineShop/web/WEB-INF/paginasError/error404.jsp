@@ -28,10 +28,10 @@
             <img src="/images/icons/alert.png" alt="alerta" align="left" />
             <br />
             <br />
-            No se ha encontrado el recurso solicitado. Por favor, revise su petición.
+            No se ha encontrado el recurso solicitado. Por favor, revise su petici&oacute;n.
             <br />
             <br />
-            <a href="/index.jsp">Volver a la página de inicio</a>
+            <a href="/index.jsp">Volver a la p&aacute;gina de inicio</a>
             <br /><br /><br /><br /><br /><br /><br />
         </p>
       <!-- Crea las esquinas redondeadas abajo -->

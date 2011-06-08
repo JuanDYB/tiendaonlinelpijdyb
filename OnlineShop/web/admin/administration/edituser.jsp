@@ -55,7 +55,7 @@
                     Nombre <br />
                     <input type="text" name="nombre" maxlength="100" size="50" class=":alpha :required :only_on_blur" value="<%= user.getNombre() %>" /><br /><br />
                     
-                    Dirección <br />
+                    Direcci&oacute;n <br />
                     <input type="text" name="dir" maxlength="200" size="70" class=":dir :required :only_on_blur" value="<%= user.getDir() %>" /><br /><br />
                     
                     Permisos<br />

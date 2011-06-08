@@ -32,17 +32,17 @@
 
     
     <p>
-        <span class="header">Cambiar contraseña</span><br />
-        Puede usar este formulario para cambiar su contraseña
+        <span class="header">Cambiar contrase&ntilde;a</span><br />
+        Puede usar este formulario para cambiar su contrase&ntilde;a
       <form name="changePass" action="/admin/ChangePass" method="post">
-      	Contraseña anterior<br />
+      	Contrase&ntilde;a anterior<br />
         <input name="prevPass" type="password" size="25" maxlength="20" class=":password :required :only_on_blur"/><br /><br />
-        Nueva contraseña<br />
+        Nueva contrase&ntilde;a<br />
         <input id="pass" name="newPass" type="password" size="25" maxlength="20" class=":password :required :only_on_blur"/><br /><br />
-        Repita la nueva contraseña por seguridad<br />
+        Repita la nueva contrase&ntilde;a por seguridad<br />
         <input name="repeatPass" type="password" size="25" maxlength="20" class=":same_as;pass :required :only_on_blur"/><br /><br /><br />
         
-        <input name="changePass" type="submit" value="Cambiar contraseña"/>
+        <input name="changePass" type="submit" value="Cambiar contrase&ntilde;a"/>
         </form>
       </p>
       
@@ -53,7 +53,7 @@
       	Nombre<br />
         <input name="name" type="text" size="50" maxlength="100" class=":alpha :required :only_on_blur" value="<%= actualUser.getNombre() %>"/><br /><br />
         
-        Dirección<br />
+        Direcci&oacute;n<br />
         Ejemplo: Calle, 1 28002-Madrid<br />
         <input name="dir" type="text" size="70" maxlength="200" class=":dir :required :only_on_blur" value="<%= actualUser.getDir() %>" /><br /><br />
         

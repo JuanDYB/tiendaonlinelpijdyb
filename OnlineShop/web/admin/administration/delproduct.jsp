@@ -43,7 +43,7 @@
         <ul>
                 <li><b>Precio: </b><%= Tools.roundDouble(prod.getPrecio()) %> &euro;</li><br />
                 <li><b>Stock disponible: </b><%= prod.getStock() %> unidades</li><br />
-                <li><b>Descripción: </b><%= prod.getDesc() %></li><br />
+                <li><b>Descripci&oacute;n: </b><%= prod.getDesc() %></li><br />
                 <li><b>Detalles: </b><br /><%= prod.getDetalles() %></li>
         </ul><br /><br />
         <p>¿Esta seguro de que desea borrar el producto?</p>
@@ -53,8 +53,8 @@
         <% } else{ %>
         <p>
         <span class="header">Producto no encontrado</span><br />
-        Ha ocurrido un error en la operación. El producto no ha sido encontrado<br /><br />
-        <a href="/admin/administration/products_administration.jsp">Administración de productos</a>
+        Ha ocurrido un error en la operaci&oacute;n. El producto no ha sido encontrado<br /><br />
+        <a href="/admin/administration/products_administration.jsp">Administraci&oacute;n de productos</a>
         </p>
         <% } %>
 

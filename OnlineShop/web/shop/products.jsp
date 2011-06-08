@@ -42,7 +42,7 @@
             <input name="term" type="text" class=":alpha :required :only_on_blur"/>
             <select name="campo">
                 <option value="name">Nombre</option>
-                <option value="desc">Descripción</option>
+                <option value="desc">Descripci&oacute;n</option>
                 <option value="detail">Detalles</option>
             </select>
             <input name="search" value="Buscar productos" type="submit" />
@@ -56,7 +56,7 @@
     }
     if (productos != null && productos.size() != 0){%>
     <table border="0" align="center" width="90%">
-        <tr class="headerTable"><td>Nombre</td><td>Precio</td><td>Disponibilidad</td><td>Descripción</td></tr>
+        <tr class="headerTable"><td>Nombre</td><td>Precio</td><td>Disponibilidad</td><td>Descripci&oacute;n</td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         <% for (Producto prod : productos.values()){ %>
         <tr class="contentTable">
@@ -66,7 +66,7 @@
             <td><%= prod.getDesc() %></td>
             <td>
             <% if (prod.getStock() > 0){ %>
-            <a href="/shop/addcart?prod=<%= prod.getCodigo() %>&cant=1"><img src="/images/icons/addCarro.png" alt="Añadir al carrito" title="Añadir producto a la cesta" /></a>
+            <a href="/shop/addcart?prod=<%= prod.getCodigo() %>&cant=1"><img src="/images/icons/addCarro.png" alt="A&ntilde;adir al carrito" title="A&ntilde;adir producto a la cesta" /></a>
             <% }else{ %>
             <img src="/images/icons/emptybox.png" alt="Producto agotado" title="Producto agotado" />
             <% } %>

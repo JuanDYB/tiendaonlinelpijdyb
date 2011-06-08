@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
@@ -16,13 +15,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
-public class StatGenerator {
+public class GeneradorDeEstadiaticasDeVentas {
     ArrayList <Carrito> historial = new ArrayList<Carrito>();
     
-    public StatGenerator (ArrayList <Carrito> historial){
+    public GeneradorDeEstadiaticasDeVentas (ArrayList <Carrito> historial){
         this.historial = historial;
     }
     
@@ -31,16 +29,18 @@ public class StatGenerator {
     }
     
     public boolean graficoGanadoPorDia (String ruta){
-        return saveJPG(crearModeloSem(mediaVendidoDiaSem()), ruta, "Media por compra en los días de la semana", "Día", "Media (€)");
+        return saveJPG(crearModeloSem(mediaVendidoDiaSem()), ruta, "Media por compra en los días de la semana",
+                "Día", "Media (€)");
     }
     
     public boolean porcentajeProductosVendidosMes (PersistenceInterface persistencia, String ruta){
-        return saveJPG(crearModeloMes(porcentajeProductosVendidosMes(persistencia)), ruta, "Porcentaje de productos vendidos por mes", "Mes", "Porcentaje (%)");
+        return saveJPG(crearModeloMes(porcentajeProductosVendidosMes(persistencia)), ruta,
+                "Porcentaje de productos vendidos por mes", "Mes", "Porcentaje (%)");
     }
     
     private int [] numVentasSemana (){
         int [] numVentasSemana = new int [8];
-        Calendar cal = Calendar.getInstance(new Locale ("es", "ES"));
+        Calendar cal = Calendar.getInstance(Tools.getLocale());
         for (int i = 0; i < historial.size(); i++){
             String [] fecha = historial.get(i).getFecha().split("-");
             cal.set(Integer.valueOf(fecha[0]), Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2]));
@@ -52,7 +52,7 @@ public class StatGenerator {
     private double [] mediaVendidoDiaSem (){
         double [] priceDiasSemana = new double [8];
         int [] comprasPerDay = new int [8];
-        Calendar cal = Calendar.getInstance(new Locale ("es", "ES"));
+        Calendar cal = Calendar.getInstance(Tools.getLocale());
         for (int i = 0; i < historial.size(); i++){
             String [] fecha = historial.get(i).getFecha().split("-");
             cal.set(Integer.valueOf(fecha[0]), Integer.valueOf(fecha[1]), Integer.valueOf(fecha[2]));
@@ -68,16 +68,14 @@ public class StatGenerator {
             }
         }
         return priceDiasSemana;
-    }
-      
+    }      
     
     private double [] porcentajeProductosVendidosMes (PersistenceInterface persistencia){
         int [] productosEnMes = new int [12];
         double [] resultados = new double [12];
         int productosVendidos = 0;
         int productosCompra = 0;
-        Calendar cal = Calendar.getInstance(new Locale ("es", "ES"));
-        
+        Calendar cal = Calendar.getInstance(Tools.getLocale());
         for (int i = 0; i < historial.size(); i++){
             productosCompra = persistencia.getDetailsCartRecord(historial.get(i).getCodigo()).size();
             productosVendidos += productosCompra;
@@ -135,13 +133,15 @@ public class StatGenerator {
         return dataset;
     }
     
-    private boolean saveJPG (DefaultCategoryDataset dataset, String ruta, String titulo, String ejeX, String ejeY){
+    private boolean saveJPG (DefaultCategoryDataset dataset, String ruta, String titulo,
+            String ejeX, String ejeY){
         try {
-            JFreeChart chart = ChartFactory.createBarChart3D(titulo, ejeX, ejeY, dataset, PlotOrientation.VERTICAL, true, true, false);
+            JFreeChart chart = ChartFactory.createBarChart3D(titulo, ejeX, ejeY, dataset,
+                    PlotOrientation.VERTICAL, true, true, false);
             ChartUtilities.saveChartAsJPEG(new File(ruta), chart, 500, 300);
             return true;
         } catch (IOException ex) {
-            Logger.getLogger(StatGenerator.class.getName()).log(Level.SEVERE, ex.getMessage());
+            Logger.getLogger(GeneradorDeEstadiaticasDeVentas.class.getName()).log(Level.SEVERE, ex.getMessage());
             return false;
         }
     }

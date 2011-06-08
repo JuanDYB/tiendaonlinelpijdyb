@@ -1,7 +1,6 @@
 package persistencia;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class PersistenceFactory {

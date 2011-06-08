@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public interface PersistenceInterface {

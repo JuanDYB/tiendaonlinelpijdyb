@@ -15,7 +15,6 @@ import org.owasp.esapi.errors.ValidationException;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class PassRecoverServlet extends HttpServlet {
@@ -25,8 +24,8 @@ public class PassRecoverServlet extends HttpServlet {
         if (validateParam(request) == true) {
             try {
                 String email = Tools.validateEmail(request.getParameter("email"));
-
-                PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+                PersistenceInterface persistencia = (PersistenceInterface)
+                        request.getServletContext().getAttribute("persistence");
                 Usuario user = persistencia.getUser(email);
 
                 if (user == null) {
@@ -34,8 +33,9 @@ public class PassRecoverServlet extends HttpServlet {
                     Tools.anadirMensaje(request, "Ha intentado recuperar la contraseña de un usuario que no existe");
                 } else {
                     String newPass = RandomStringUtils.randomAlphanumeric(19);
-                    String newPassHash = Tools.MD5Signature(newPass + newPass.toLowerCase());
-                    Usuario newUser = new Usuario(user.getNombre(), user.getDir(), user.getMail(), newPassHash, user.getPermisos());
+                    String newPassHash = Tools.generateMD5Signature(newPass + newPass.toLowerCase());
+                    Usuario newUser = new Usuario(user.getNombre(), user.getDir(), user.getMail(),
+                            newPassHash, user.getPermisos());
                     
                     boolean cambioPass = persistencia.updateUser(user.getMail(), newUser);
                     if (cambioPass == true){
@@ -49,7 +49,6 @@ public class PassRecoverServlet extends HttpServlet {
                         Tools.anadirMensaje(request, "Error en el proceso de recuperación de la contraseña, inténtelo de nuevo");
                     }
                 }
-
             } catch (IntrusionException ex) {
                 request.setAttribute("resultados", "Intrusión detectada");
                 Tools.anadirMensaje(request, ex.getUserMessage());
@@ -59,7 +58,6 @@ public class PassRecoverServlet extends HttpServlet {
             } finally {
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
-
         } else {
             request.setAttribute("resultados", "Formulario no valido");
             Tools.anadirMensaje(request, "El formulario recibido no es correcto");
@@ -70,12 +68,10 @@ public class PassRecoverServlet extends HttpServlet {
     protected boolean enviarMail(HttpServletRequest request, Usuario user, String newPass) {
         SendMail mailConfig = (SendMail) request.getServletContext().getAttribute("EmailSend");
         Session mailSession = mailConfig.startSession((Authenticator) request.getServletContext().getAttribute("autorizacionMail"));
-
         String contenido = Tools.leerArchivoClassPath("/plantillaRecuperarPass.html");
         contenido = contenido.replace("&NAME", user.getNombre());
         contenido = contenido.replace("&EMAIL", user.getMail());
         contenido = contenido.replace("&PASS", newPass);
-
         MimeMessage mensaje = mailConfig.newMail("Recuperación de contraseña tienda online", user.getMail(), contenido, mailSession);
         if (mensaje == null) {
             request.setAttribute("resultados", "Error enviando mensaje");
@@ -94,7 +90,6 @@ public class PassRecoverServlet extends HttpServlet {
                 return false;
             }
         }
-
     }
 
     protected boolean validateParam(HttpServletRequest request) {
@@ -103,24 +98,16 @@ public class PassRecoverServlet extends HttpServlet {
         }
         return false;
     }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

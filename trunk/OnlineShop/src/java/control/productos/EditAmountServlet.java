@@ -13,7 +13,6 @@ import org.owasp.esapi.errors.ValidationException;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class EditAmountServlet extends HttpServlet {
@@ -71,7 +70,6 @@ public class EditAmountServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -86,10 +84,4 @@ public class EditAmountServlet extends HttpServlet {
             return false;
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class LogOutServlet extends HttpServlet {
-   
-    
+       
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         if (request.getSession().getAttribute("auth") != null && (Boolean)request.getSession().getAttribute("auth") == true){
@@ -26,25 +24,16 @@ public class LogOutServlet extends HttpServlet {
             response.sendRedirect("/index.jsp");
         }
     } 
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

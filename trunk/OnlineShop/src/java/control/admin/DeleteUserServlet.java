@@ -12,11 +12,9 @@ import org.owasp.esapi.errors.ValidationException;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class DeleteUserServlet extends HttpServlet {
-
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,7 +22,8 @@ public class DeleteUserServlet extends HttpServlet {
             try {
                 String email = Tools.validateEmail(request.getParameter("user"));
                 request.setAttribute("resultados", "Resultados de la operación");
-                PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+                PersistenceInterface persistencia = (PersistenceInterface)
+                        request.getServletContext().getAttribute("persistence");
                 Usuario user = persistencia.getUser(email);
                 if (user != null) {
                     if (persistencia.anyAdmin() == 1 && user.getPermisos() == 'a') {
@@ -46,7 +45,6 @@ public class DeleteUserServlet extends HttpServlet {
                 } else {
                     Tools.anadirMensaje(request, "El usuario seleccionado no se ha encontrado, imposible borrar");
                 }
-
             } catch (IntrusionException ex) {
                 Tools.anadirMensaje(request, ex.getUserMessage());
             } catch (ValidationException ex) {
@@ -67,7 +65,6 @@ public class DeleteUserServlet extends HttpServlet {
         }
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,7 +72,6 @@ public class DeleteUserServlet extends HttpServlet {
 
 
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -85,11 +81,4 @@ public class DeleteUserServlet extends HttpServlet {
 
 
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-
-    }// </editor-fold>
 }

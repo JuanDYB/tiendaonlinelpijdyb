@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class DeleteCartServlet extends HttpServlet {
@@ -27,11 +26,4 @@ public class DeleteCartServlet extends HttpServlet {
     throws ServletException, IOException {
         response.sendError(404);
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

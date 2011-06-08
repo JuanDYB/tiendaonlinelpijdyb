@@ -14,15 +14,9 @@ import javax.servlet.http.HttpSession;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author JuanDYB
  */
 public class AdministrationFilter implements Filter {
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -33,6 +27,10 @@ public class AdministrationFilter implements Filter {
         }else{
             ((HttpServletResponse)response).sendRedirect("/admin/index.jsp");
         }
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override

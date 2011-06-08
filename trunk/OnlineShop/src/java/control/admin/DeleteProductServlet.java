@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class DeleteProductServlet extends HttpServlet {
-
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -28,31 +26,28 @@ public class DeleteProductServlet extends HttpServlet {
             } else {
                 Tools.anadirMensaje(request, "Ha ocurrido un error borrando el producto");
             }
-            
-            //Borra la imagen si existe
-            if (Tools.fileExists(request.getServletContext().getRealPath("/images/products/" + request.getParameter("cod"))) == true) {
-                boolean image = Tools.borrarImagenProd(request.getServletContext().getRealPath("/images/products/" + request.getParameter("cod")));
-                if (image == true) {
+           String rutaDeLaImagen = request.getServletContext().getRealPath("/images/products/" +
+                   request.getParameter("cod"));
+            if (Tools.existeElFichero(rutaDeLaImagen)) {
+                boolean image = Tools.borrarImagenDeProdructoDelSistemaDeFicheros(rutaDeLaImagen);
+                if (image) {
                     Tools.anadirMensaje(request, "Se ha borrado correctamente la imagen del producto");
                 } else {
                     Tools.anadirMensaje(request, "Hubo un error borrando la imagen del producto");
                 }
-            }
-            
+            }            
             RequestDispatcher borrado = request.getRequestDispatcher("/admin/administration/products_administration.jsp");
             borrado.forward(request, response);
         } else {
             response.sendError(404);
         }
     }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -67,10 +62,4 @@ public class DeleteProductServlet extends HttpServlet {
             return false;
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

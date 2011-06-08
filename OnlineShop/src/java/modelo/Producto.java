@@ -3,7 +3,6 @@ package modelo;
 import java.io.Serializable;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class Producto implements Serializable{
@@ -14,8 +13,7 @@ public class Producto implements Serializable{
     private String desc;
     private String detalles;
 
-    public Producto (){
-        
+    public Producto (){        
     }
 
     public Producto(String codigo, String nombre, double precio, int stock) {
@@ -25,7 +23,6 @@ public class Producto implements Serializable{
         this.stock = stock;
     }
     
-
     public Producto(String codigo, String nombre, double precio, int stock, String desc, String detalles) {
         this.codigo = codigo;
         this.nombre = nombre;

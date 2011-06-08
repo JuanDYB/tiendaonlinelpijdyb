@@ -35,29 +35,26 @@ import org.owasp.validator.html.ScanException;
  */
 public class Tools {
 
-    public static String MD5Signature(String input) {
+    public static String generateMD5Signature(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] huella = md.digest(input.getBytes());
-            return asHex(huella);
+            return transformaAHexadecimal(huella);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, "No se ha encontrado el algoritmo MD5", ex);
+            Logger.getLogger(Tools.class.getName()).log(Level.SEVERE,
+                    "No se ha encontrado el algoritmo MD5", ex);
             return "-1";
         }
     }
 
-    private static String asHex(byte buf[]) {
+    private static String transformaAHexadecimal(byte buf[]) {
         StringBuilder strbuf = new StringBuilder(buf.length * 2);
-        int i;
-
-        for (i = 0; i < buf.length; i++) {
+        for (int i = 0; i < buf.length; i++) {
             if (((int) buf[i] & 0xff) < 0x10) {
                 strbuf.append("0");
             }
-
             strbuf.append(Long.toString((int) buf[i] & 0xff, 16));
         }
-
         return strbuf.toString();
     }
 
@@ -73,7 +70,7 @@ public class Tools {
         }
     }
 
-    public static String genUUID() {
+    public static String generaUUID() {
         return UUID.randomUUID().toString();
     }
 
@@ -106,7 +103,8 @@ public class Tools {
         return validador.getValidInput("Dirección", input, "Adress", 200, false);
     }
 
-    public static int validateNumber(String input, String context) throws IntrusionException, ValidationException {
+    public static int validateNumber(String input, String context)
+            throws IntrusionException, ValidationException {
         Validator validador = ESAPI.validator();
         return validador.getValidInteger(context, input, 0, 999999, false);
     }
@@ -116,7 +114,8 @@ public class Tools {
         return validador.getValidDouble("Precio", input, 0, Double.MAX_VALUE, false);
     }
 
-    public static String validateProdText(String input, int length, String context) throws IntrusionException, ValidationException {
+    public static String validateProdText(String input, int length, String context)
+            throws IntrusionException, ValidationException {
         Validator validador = ESAPI.validator();
         return validador.getValidInput(context, input, "NameDescProd", length, false);
     }
@@ -126,7 +125,7 @@ public class Tools {
         return validador.getValidPrintable("Detalles del producto", input, Integer.MAX_VALUE, false);
     }
 
-    public static boolean validatePerm(char perm) {
+    public static boolean validatePermisos(char perm) {
         if (perm == 'a' || perm == 'c') {
             return true;
         } else {
@@ -142,7 +141,7 @@ public class Tools {
     }
 
     public static String getDate() {
-        Calendar cal = Calendar.getInstance(new Locale ("es", "ES"));
+        Calendar cal = Calendar.getInstance(Tools.getLocale());
         String [] fecha = cal.getTime().toString().split(" ");
         String [] hora = fecha[3].split(":");        
 
@@ -152,7 +151,7 @@ public class Tools {
 
     public static String printDate (String fechaString){
         String [] fechaSeparada = fechaString.split("-");
-        Calendar cal  = Calendar.getInstance(new Locale ("es", "ES"));
+        Calendar cal  = Calendar.getInstance(Tools.getLocale());
         cal.set(Integer.valueOf(fechaSeparada[0]), Integer.valueOf(fechaSeparada[1]), Integer.valueOf(fechaSeparada[2]));
         String [] date = cal.getTime().toString().split(" ");
         return date[2] + "-" + date[1] + "-" + date[5];
@@ -167,7 +166,8 @@ public class Tools {
             AntiSamy validator = new AntiSamy();
             CleanResults cr = validator.scan(ESAPI.encoder().canonicalize(input), politica);
             if (cr.getNumberOfErrors() != 0) {
-                throw new IntrusionException("Ha introducido código HTML que no está permitido", cr.getErrorMessages().get(0).toString());
+                throw new IntrusionException("Ha introducido código HTML que no está permitido",
+                        cr.getErrorMessages().get(0).toString());
             }
         } catch (PolicyException ex) {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
@@ -213,7 +213,8 @@ public class Tools {
         }
     }
 
-    public static boolean guardarFoto(InputStream input, String fileName) throws ServletException {
+    public static boolean guardarImagenDeProdructoEnElSistemaDeFicheros(InputStream input, String fileName)
+            throws ServletException {
         FileOutputStream output = null;
         try {
             output = new FileOutputStream(fileName);
@@ -232,21 +233,27 @@ public class Tools {
         } finally {
             try {
                 output.flush();
-                output.close();
                 return true;
             } catch (IOException ex) {
                 Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
                 return false;
             }
+            finally{
+                try {
+                    output.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     
-    public static boolean borrarImagenProd (String ruta){
+    public static boolean borrarImagenDeProdructoDelSistemaDeFicheros (String ruta){
         File imagen = new File (ruta);
         return imagen.delete();
     }
     
-    public static boolean fileExists (String ruta){
+    public static boolean existeElFichero (String ruta){
         File imagen = new File (ruta);
         return imagen.exists();
     }
@@ -260,5 +267,9 @@ public class Tools {
         }
         sc.close();
         return texto.toString();
+    }
+
+    public static Locale getLocale(){
+        return new Locale ("es", "ES");
     }
 }

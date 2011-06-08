@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class UpdateCartServlet extends HttpServlet {
@@ -44,11 +43,10 @@ public class UpdateCartServlet extends HttpServlet {
             }
             cart.setPrecio(precioTotal);
             //Si hay cambios en el carrito se avisa y no se redirige
-            if (redirect == true){
+            if (redirect){
                 request.getRequestDispatcher("/shop/cart.jsp").forward(request, response);
                 return;
             }
-
             //Se va a terminar la compra o al resumen de la compra según corresponda
             if (request.getParameter("buy")!= null && request.getParameter("buy").equals("preBuy")){
                 request.getRequestDispatcher("/shop/buy").forward(request, response);
@@ -61,14 +59,12 @@ public class UpdateCartServlet extends HttpServlet {
             request.getRequestDispatcher("/shop/products.jsp").forward(request, response);
         }
     }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
     } 
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -79,11 +75,5 @@ public class UpdateCartServlet extends HttpServlet {
             response.sendError(404);
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

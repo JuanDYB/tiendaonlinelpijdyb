@@ -11,11 +11,9 @@ import org.owasp.esapi.errors.IntrusionException;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author JuanDYB
  */
 public class AddCommentServlet extends HttpServlet {
-
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -25,22 +23,20 @@ public class AddCommentServlet extends HttpServlet {
             try{
                 String codProd = request.getParameter("prod");
                 String comentario = request.getParameter("comentario");
-                Tools.validateHTML(comentario);
-                
-                PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+                Tools.validateHTML(comentario);                
+                PersistenceInterface persistencia = (PersistenceInterface)
+                        request.getServletContext().getAttribute("persistence");
                 Usuario user = persistencia.getUser((String) request.getSession().getAttribute("usuario"));
                 
-                boolean ok = persistencia.newComment(user, codProd, Tools.genUUID(), Tools.getDate(), comentario);
-                
-                if (ok == false){
+                boolean ok = persistencia.newComment(user, codProd, Tools.generaUUID(), 
+                        Tools.getDate(), comentario);
+                if (!ok){
                     request.setAttribute("resultados", "Error en la operación");
                     Tools.anadirMensaje(request, "Ha ocurrido un error en el transcurso de la operación");
                     request.getRequestDispatcher("/shop/viewprod.jsp?" + back).forward(request, response);
                 }else{
                     response.sendRedirect("/shop/viewprod.jsp?" + back);
                 }
-                
-                
             }catch (IntrusionException ex){                
                 request.setAttribute("resultados", "HTML no válido");
                 Tools.anadirMensaje(request, ex.getMessage());
@@ -52,15 +48,12 @@ public class AddCommentServlet extends HttpServlet {
             request.getRequestDispatcher("/shop/viewprod.jsp?" + back).forward(request, response);
         }
     }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.sendError(404);
-
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -70,17 +63,10 @@ public class AddCommentServlet extends HttpServlet {
     
     protected boolean validateForm (HttpServletRequest request){
         if (request.getParameterMap().size() >= 3 && request.getParameter("comentario") != null 
-                && request.getParameter("send") != null && request.getParameter("prod") != null){
-            
+                && request.getParameter("send") != null && request.getParameter("prod") != null){            
             return Tools.validateUUID(request.getParameter("prod"));
         }else{
             return false;
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

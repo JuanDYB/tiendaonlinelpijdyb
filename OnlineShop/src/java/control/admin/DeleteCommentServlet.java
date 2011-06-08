@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class DeleteCommentServlet extends HttpServlet {
@@ -42,14 +41,12 @@ public class DeleteCommentServlet extends HttpServlet {
         }
         return false;
     }
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,10 +54,4 @@ public class DeleteCommentServlet extends HttpServlet {
         
         response.sendError(404);
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

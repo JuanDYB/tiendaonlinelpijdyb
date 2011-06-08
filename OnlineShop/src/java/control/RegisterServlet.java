@@ -14,18 +14,15 @@ import org.owasp.esapi.errors.ValidationException;
 import persistencia.PersistenceInterface;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class RegisterServlet extends HttpServlet {
-
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.sendError(404);
     }
-
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -39,45 +36,38 @@ public class RegisterServlet extends HttpServlet {
                 String repeatPass = Tools.validatePass(request.getParameter("repeatPass"));
 
                 if (pass.equals(repeatPass)) {
-                    pass = Tools.MD5Signature(pass + pass.toLowerCase());
+                    pass = Tools.generateMD5Signature(pass + pass.toLowerCase());
                     Usuario user = new Usuario(name, dir, email, pass, 'c');
-                    PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
+                    PersistenceInterface persistencia = (PersistenceInterface)
+                            request.getServletContext().getAttribute("persistence");
                     boolean ok = persistencia.addUser(user);
-                    if (ok == true) {
+                    if (ok) {
                         request.setAttribute("resultados", "Usuario registrado");
                         Tools.anadirMensaje(request, "Su usuario ha sido registrado correctamente");
                         Tools.anadirMensaje(request, "Ya puede realizar las compras que desee con su usuario, dispone de un formulario de login en esta misma página");
                         Tools.anadirMensaje(request, "Puede acceder a su panel de usuario desde el menú después de iniciar sesión");
-
                         mandarEmail(request, user);
-
-
-                        request.getRequestDispatcher("/login.jsp").forward(request, response);
                     } else {
                         request.setAttribute("resultados", "Error en el registro");
                         Tools.anadirMensaje(request, "Ya hay un usuario registrado con este email");
-                        request.getRequestDispatcher("/login.jsp").forward(request, response);
                     }
                 } else {
                     request.setAttribute("resultados", "Datos incorrectos");
                     Tools.anadirMensaje(request, "La contraseña no coincide con su repeticion");
-                    request.getRequestDispatcher("/login.jsp").forward(request, response);
                 }
 
             } catch (IntrusionException ex) {
                 request.setAttribute("resultados", "Detectada una intrusión");
                 Tools.anadirMensaje(request, ex.getUserMessage());
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
             } catch (ValidationException ex) {
                 request.setAttribute("resultados", "Error en el formulario");
                 Tools.anadirMensaje(request, ex.getUserMessage());
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
         } else {
             request.setAttribute("resultados", "Ocurrio un error en el registro");
             Tools.anadirMensaje(request, "El formulario enviado no es correcto");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }
+        request.getRequestDispatcher("/login.jsp").forward(request, response);
     }
 
     protected boolean validateForm(HttpServletRequest request) {
@@ -115,10 +105,4 @@ public class RegisterServlet extends HttpServlet {
             }
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

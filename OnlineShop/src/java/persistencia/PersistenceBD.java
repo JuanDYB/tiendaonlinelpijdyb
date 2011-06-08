@@ -25,7 +25,7 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 //@contador numero inicial de líneas en la clase: 987
-//@contador después de modificaciones: 944
+//@contador después de modificaciones: 887
 
 /**
  * Clase que sigue el modelo singleton que impide tener más de un objeto de esa clase en la aplicación
@@ -43,36 +43,6 @@ public class PersistenceBD implements PersistenceInterface {
 
     public static PersistenceBD getInstance() {
         return instance;
-    }
-
-    private void cerrarConexionYStatement(Connection conexion, Statement... statements) {
-        try {
-            conexion.close();
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Error al cerrar una conexión a la base de datos", ex);
-        } finally {
-            for (Statement statement : statements) {
-                if (statement != null) {
-                    try {
-                        statement.close();
-                    } catch (SQLException ex) {
-                        logger.log(Level.SEVERE, "Error al cerrar un statement", ex);
-                    }
-                }
-            }
-        }
-    }
-
-    private void cerrarResultSet(ResultSet... results) {
-        for (ResultSet rs : results) {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    logger.log(Level.SEVERE, "Error al cerrar un resultset", ex);
-                }
-            }
-        }
     }
 
     @Override
@@ -97,7 +67,6 @@ public class PersistenceBD implements PersistenceInterface {
         return true;
     }
 
-    //@cambio haz tu lo propio con todos los demás metodos
     @Override
     public boolean addUser(Usuario user) {
         Connection conexion = null;
@@ -105,7 +74,6 @@ public class PersistenceBD implements PersistenceInterface {
         PreparedStatement insert = null;
         try {
             conexion = pool.getConnection();
-
             insert = conexion.prepareStatement("INSERT INTO " + nameBD + ".Usuarios VALUES (?,?,?,?,?)");
             insert.setString(1, user.getMail());
             insert.setString(2, user.getNombre());
@@ -132,9 +100,7 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-
             insert = conexion.prepareCall("INSERT INTO " + nameBD + ".Productos VALUES (?,?,?,?,?,?)");
-
             insert.setString(1, prod.getCodigo());
             insert.setString(2, prod.getNombre());
             insert.setDouble(3, prod.getPrecio());
@@ -143,11 +109,9 @@ public class PersistenceBD implements PersistenceInterface {
             insert.setString(6, prod.getDetalles());
 
             int filasAfectadas = insert.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error insertando producto", ex);
         } finally {
@@ -163,16 +127,13 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-
             delete = conexion.prepareStatement("DELETE FROM " + nameBD + ".Usuarios WHERE Email=?");
             delete.setString(1, mail);
 
             int filasAfectadas = delete.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error borrando usuario", ex.getMessage());
         } finally {
@@ -189,19 +150,14 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-
             delete = conexion.prepareStatement("DELETE FROM " + nameBD + ".Productos WHERE Codigo=?");
             delete.setString(1, codigo);
-
             deleteComments = conexion.prepareStatement("DELETE FROM " + nameBD + ".Comentarios WHERE CodigoProducto=?");
             deleteComments.setString(1, codigo);
 
-
             int filasAfectadas = delete.executeUpdate();
-
             if (filasAfectadas == 1) {
                 deleteComments.executeUpdate();
-
                 exito = true;
             }
         } catch (SQLException ex) {
@@ -221,14 +177,12 @@ public class PersistenceBD implements PersistenceInterface {
 
         try {
             conexion = pool.getConnection();
-
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Usuarios WHERE Email=?");
             select.setString(1, mail);
-
             rs = select.executeQuery();
-
             while (rs.next()) {
-                user = new Usuario(rs.getString("Nombre"), rs.getString("Direccion"), rs.getString("Email"), rs.getString("Pass"), rs.getString("Permisos").charAt(0));
+                user = new Usuario(rs.getString("Nombre"), rs.getString("Direccion"), rs.getString("Email"),
+                        rs.getString("Pass"), rs.getString("Permisos").charAt(0));
             }
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error obteniendo usuario", ex);
@@ -248,16 +202,13 @@ public class PersistenceBD implements PersistenceInterface {
         Producto prod = null;
         try {
             conexion = pool.getConnection();
-
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Productos WHERE Codigo=?");
             select.setString(1, codigo);
-
             rs = select.executeQuery();
-
             while (rs.next()) {
-                prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
+                prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"),
+                        rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error obteniendo producto", ex);
             prod = null;
@@ -276,8 +227,8 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-
-            update = conexion.prepareStatement("UPDATE " + nameBD + ".Usuarios SET Nombre=?, Direccion=?, Pass=?, Permisos=? WHERE Email=?");
+            update = conexion.prepareStatement("UPDATE " + nameBD +
+                    ".Usuarios SET Nombre=?, Direccion=?, Pass=?, Permisos=? WHERE Email=?");
             update.setString(1, user.getNombre());
             update.setString(2, user.getDir());
             update.setString(3, user.getPass());
@@ -285,17 +236,14 @@ public class PersistenceBD implements PersistenceInterface {
             update.setString(5, mail);
 
             int filasAfectadas = update.executeUpdate();
-
             if (filasAfectadas == 1) {
-                //Update nombres de los comentarios
-                updateComentarios = conexion.prepareStatement("UPDATE " + nameBD + ".Comentarios SET Nombre=? WHERE Email=?");
+                updateComentarios = conexion.prepareStatement("UPDATE " + nameBD +
+                        ".Comentarios SET Nombre=? WHERE Email=?");
                 updateComentarios.setString(1, user.getNombre());
                 updateComentarios.setString(2, mail);
-
                 updateComentarios.executeUpdate();
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error editando usuario o su nombre en los comentarios", ex.getMessage());
         } finally {
@@ -311,8 +259,8 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-
-            update = conexion.prepareStatement("UPDATE " + nameBD + ".Productos SET Nombre=?, Precio=?, Stock=?, Descripcion=?, Detalles=? WHERE Codigo=?");
+            update = conexion.prepareStatement("UPDATE " + nameBD +
+                    ".Productos SET Nombre=?, Precio=?, Stock=?, Descripcion=?, Detalles=? WHERE Codigo=?");
             update.setString(1, prod.getNombre());
             update.setDouble(2, prod.getPrecio());
             update.setInt(3, prod.getStock());
@@ -321,11 +269,9 @@ public class PersistenceBD implements PersistenceInterface {
             update.setString(6, codigo);
 
             int filasAfectadas = update.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error actualizando producto", ex);
         } finally {
@@ -335,7 +281,8 @@ public class PersistenceBD implements PersistenceInterface {
     }
 
     @Override
-    public boolean updateProductIfAvailable(Map<String, Integer> carro, HttpServletRequest request, Map<Producto, Integer> listado) {
+    public boolean updateProductIfAvailable(Map<String, Integer> carro, HttpServletRequest request,
+            Map<Producto, Integer> listado) {
         Connection conexion = null;
         PreparedStatement select = null;
         PreparedStatement update = null;
@@ -344,36 +291,30 @@ public class PersistenceBD implements PersistenceInterface {
         try {
             conexion = pool.getConnection();
             conexion.setAutoCommit(false);
-
-            //Consultas
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Productos WHERE Codigo=?");
             update = conexion.prepareStatement("UPDATE " + nameBD + ".Productos SET Stock=? WHERE Codigo=?");
-
-
             String codigoProd;
             int filasAfectadas = 0;
 
             Iterator<String> iterador = carro.keySet().iterator();
             while (iterador.hasNext()) {
                 codigoProd = iterador.next();
-
                 select.setString(1, codigoProd);
                 rs = select.executeQuery();
-
                 if (rs.next() == false) {
-                    Tools.anadirMensaje(request, "No existe el producto con codigo: " + codigoProd + "(producto eliminado de la cesta)");
+                    Tools.anadirMensaje(request, "No existe el producto con codigo: " + codigoProd +
+                            "(producto eliminado de la cesta)");
                     iterador.remove();
                     conexion.rollback();
                 } else {
-                    Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
-
+                    Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"),
+                            rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
                     select.clearParameters();
-
                     if (carro.get(codigoProd) > prod.getStock()) {
-                        Tools.anadirMensaje(request, "No hay unidades suficientes de: " + prod.getNombre() + "(producto eliminado de la cesta)");
+                        Tools.anadirMensaje(request, "No hay unidades suficientes de: " + prod.getNombre() +
+                                "(producto eliminado de la cesta)");
                         iterador.remove();
                         conexion.rollback();
-
                     } else {
                         update.setInt(1, prod.getStock() - carro.get(codigoProd));
                         update.setString(2, codigoProd);
@@ -381,7 +322,6 @@ public class PersistenceBD implements PersistenceInterface {
                         if (filasAfectadas != 1) {
                             Tools.anadirMensaje(request, "Ocurrio un error en el catalogo");
                             conexion.rollback();
-
                         }
                         update.clearParameters();
                         listado.put(prod, carro.get(codigoProd));
@@ -412,14 +352,12 @@ public class PersistenceBD implements PersistenceInterface {
         int numAdmin = -1;
         try {
             conexion = pool.getConnection();
-
-            select = conexion.prepareStatement("SELECT COUNT(Permisos) AS num FROM " + nameBD + ".Usuarios WHERE Permisos = 'a'");
+            select = conexion.prepareStatement("SELECT COUNT(Permisos) AS num FROM " +
+                    nameBD + ".Usuarios WHERE Permisos = 'a'");
             rs = select.executeQuery();
-
             while (rs.next()) {
                 numAdmin = rs.getInt("num");
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error obteniendo el numero de administradores", ex);
         } finally {
@@ -437,14 +375,13 @@ public class PersistenceBD implements PersistenceInterface {
         ResultSet rs = null;
         try {
             conexion = pool.getConnection();
-
             select = conexion.prepareCall("SELECT* FROM " + nameBD + ".Productos");
             rs = select.executeQuery();
             while (rs.next()) {
-                Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
+                Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"),
+                        rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
                 productos.put(prod.getCodigo(), prod);
             }
-
             if (productos.size() <= 0) {
                 productos = null;
             }
@@ -466,18 +403,16 @@ public class PersistenceBD implements PersistenceInterface {
         ResultSet rs = null;
         try {
             conexion = pool.getConnection();
-
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Usuarios");
             rs = select.executeQuery();
             while (rs.next()) {
-                Usuario user = new Usuario(rs.getString("Nombre"), rs.getString("Direccion"), rs.getString("Email"), rs.getString("Pass"), rs.getString("Permisos").charAt(0));
+                Usuario user = new Usuario(rs.getString("Nombre"), rs.getString("Direccion"),
+                        rs.getString("Email"), rs.getString("Pass"), rs.getString("Permisos").charAt(0));
                 usuarios.put(user.getMail(), user);
             }
-
             if (usuarios.size() <= 0) {
                 usuarios = null;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error obteniendo los usuarios", ex);
             usuarios = null;
@@ -498,18 +433,15 @@ public class PersistenceBD implements PersistenceInterface {
             conexion = pool.getConnection();
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Productos WHERE " + campo + " LIKE ?");
             select.setString(1, "%" + term + "%");
-
             rs = select.executeQuery();
-
             while (rs.next()) {
-                Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"), rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
+                Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"),
+                        rs.getDouble("Precio"), rs.getInt("Stock"), rs.getString("Descripcion"), rs.getString("Detalles"));
                 productos.put(prod.getCodigo(), prod);
             }
-
             if (productos.size() <= 0) {
                 productos = null;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error buscando producto", ex);
             productos = null;
@@ -521,7 +453,8 @@ public class PersistenceBD implements PersistenceInterface {
     }
 
     @Override
-    public boolean saveRequest(String fechaHora, String requestedURL, String remoteAddr, String remoteHost, String method, String param, String userAgent) {
+    public boolean saveRequest(String fechaHora, String requestedURL, String remoteAddr,
+            String remoteHost, String method, String param, String userAgent) {
         Connection conexion = null;
         PreparedStatement insert = null;
         boolean exito = false;
@@ -537,11 +470,9 @@ public class PersistenceBD implements PersistenceInterface {
             insert.setString(7, userAgent);
 
             int filasAfectadas = insert.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error guardando log de petición", ex);
         } finally {
@@ -568,25 +499,20 @@ public class PersistenceBD implements PersistenceInterface {
             insertHistorial.setBoolean(6, completado);
 
             int filasAfectadas = insertHistorial.executeUpdate();
-
             if (filasAfectadas != 1) {
                 conexion.rollback();
             } else {
-
                 insertCarrito = conexion.prepareStatement("INSERT INTO " + nameBD + ".Carritos VALUES (?,?,?,?,?)");
-
                 Iterator<String> iteradorProductos = cart.getArticulos().keySet().iterator();
                 while (iteradorProductos.hasNext()) {
                     String key = iteradorProductos.next();
                     Producto prod = getProduct(key);
                     int cantidad = cart.getArticulos().get(key);
-
                     insertCarrito.setString(1, cart.getCodigo());
                     insertCarrito.setString(2, prod.getCodigo());
                     insertCarrito.setString(3, prod.getNombre());
                     insertCarrito.setDouble(4, prod.getPrecio());
                     insertCarrito.setInt(5, cantidad);
-
                     filasAfectadas = insertCarrito.executeUpdate();
                     if (filasAfectadas != 1) {
                         conexion.rollback();
@@ -594,11 +520,9 @@ public class PersistenceBD implements PersistenceInterface {
                     }
                     insertCarrito.clearParameters();
                 }
-
                 conexion.commit();
                 exito = true;
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error añadiendo carrito al registro", ex);
             try {
@@ -623,25 +547,22 @@ public class PersistenceBD implements PersistenceInterface {
         try {
             conexion = pool.getConnection();
             conexion.setAutoCommit(false);
-
             ArrayList<String> carrosIncompletos = this.requestIncompleteCarts(mail);
-
             if (carrosIncompletos != null) {
-                //Obtengo datos carro
                 selectCarro = conexion.prepareStatement("SELECT * FROM " + nameBD + ".HistorialCarritos WHERE CodigoCarrito=?");
                 selectCarro.setString(1, carrosIncompletos.get(0));
                 consultaDatosCarro = selectCarro.executeQuery();
 
                 while (consultaDatosCarro.next()) {
-                    carro = new Carrito(consultaDatosCarro.getString("CodigoCarrito"), consultaDatosCarro.getString("Email"), consultaDatosCarro.getDouble("Precio"));
+                    carro = new Carrito(consultaDatosCarro.getString("CodigoCarrito"),
+                            consultaDatosCarro.getString("Email"), consultaDatosCarro.getDouble("Precio"));
                 }
-
                 if (carro == null) {
                     conexion.rollback();
                 } else {
-                    //Obtengo productos carro
                     Map<String, Integer> productosCarro = new HashMap<String, Integer>();
-                    selectProductos = conexion.prepareCall("SELECT CodigoProducto, Cantidad FROM " + nameBD + ".Carritos WHERE CodigoCarrito=?");
+                    selectProductos = conexion.prepareCall("SELECT CodigoProducto, Cantidad FROM " +
+                            nameBD + ".Carritos WHERE CodigoCarrito=?");
                     selectProductos.setString(1, carrosIncompletos.get(0));
                     rs = selectProductos.executeQuery();
                     while (rs.next()) {
@@ -678,7 +599,6 @@ public class PersistenceBD implements PersistenceInterface {
             conexion = pool.getConnection();
             conexion.setAutoCommit(false);
             ArrayList<String> carrosIncompletos = this.requestIncompleteCarts(mailClient);
-
             if (carrosIncompletos != null) {
                 deleteHistorialCarros = conexion.prepareStatement("DELETE FROM "
                         + nameBD + ".HistorialCarritos WHERE CodigoCarrito=?");
@@ -688,12 +608,10 @@ public class PersistenceBD implements PersistenceInterface {
                     deleteHistorialCarros.setString(1, carrosIncompletos.get(i));
                     deleteHistorialCarros.execute();
                     deleteHistorialCarros.clearParameters();
-
                     deleteProdCarro.setString(1, carrosIncompletos.get(i));
                     deleteProdCarro.execute();
                     deleteProdCarro.clearParameters();
                 }
-
             }
             conexion.commit();
             exito = true;
@@ -722,12 +640,14 @@ public class PersistenceBD implements PersistenceInterface {
         try {
             Calendar cal = Calendar.getInstance(new Locale("es", "ES"));
             conexion = pool.getConnection();
-            select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".HistorialCarritos WHERE Completado=true AND " + campo + "=?");
+            select = conexion.prepareStatement("SELECT* FROM " + nameBD +
+                    ".HistorialCarritos WHERE Completado=true AND " + campo + "=?");
             select.setString(1, term);
             rs = select.executeQuery();
-
             while (rs.next()) {
-                Carrito carro = new Carrito(rs.getString("CodigoCarrito"), rs.getString("Email"), rs.getDouble("Precio"), rs.getDate("FechaHora", cal).toString(), rs.getTime("FechaHora", cal).toString(), rs.getString("Pago"));
+                Carrito carro = new Carrito(rs.getString("CodigoCarrito"), rs.getString("Email"), 
+                        rs.getDouble("Precio"), rs.getDate("FechaHora", cal).toString(),
+                        rs.getTime("FechaHora", cal).toString(), rs.getString("Pago"));
                 historial.add(carro);
             }
 
@@ -755,12 +675,11 @@ public class PersistenceBD implements PersistenceInterface {
             select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Carritos WHERE CodigoCarrito=?");
             select.setString(1, codigo);
             rs = select.executeQuery();
-
             while (rs.next()) {
-                Producto prod = new Producto(rs.getString("CodigoProducto"), rs.getString("Nombre"), rs.getDouble("Precio"), rs.getInt("Cantidad"));
+                Producto prod = new Producto(rs.getString("CodigoProducto"), rs.getString("Nombre"),
+                        rs.getDouble("Precio"), rs.getInt("Cantidad"));
                 listado.add(prod);
             }
-
             if (listado.size() <= 0) {
                 listado = null;
             } 
@@ -781,16 +700,13 @@ public class PersistenceBD implements PersistenceInterface {
         ResultSet rs = null;
         try {
             conexion = pool.getConnection();
-
-            selectHistorial = conexion.prepareStatement("SELECT CodigoCarrito FROM " + nameBD + ".HistorialCarritos WHERE Email=? AND Completado=false");
+            selectHistorial = conexion.prepareStatement("SELECT CodigoCarrito FROM " + nameBD +
+                    ".HistorialCarritos WHERE Email=? AND Completado=false");
             selectHistorial.setString(1, mail);
             rs = selectHistorial.executeQuery();
-            String codigo = null;
-            
             while (rs.next()) {
                 carrosIncompletos.add(rs.getString("CodigoCarrito"));
             }
-
             if (carrosIncompletos.size() <= 0) {
                 carrosIncompletos = null;
             } 
@@ -805,7 +721,8 @@ public class PersistenceBD implements PersistenceInterface {
     }
 
     @Override
-    public boolean newComment(Usuario user, String codigoProducto, String codigoComentario, String fechaHora, String comentario) {
+    public boolean newComment(Usuario user, String codigoProducto, String codigoComentario,
+            String fechaHora, String comentario) {
         Connection conexion = null;
         PreparedStatement insert = null;
         boolean exito = false;
@@ -820,7 +737,6 @@ public class PersistenceBD implements PersistenceInterface {
             insert.setString(6, comentario);
 
             int filasAfectadas = insert.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
@@ -843,7 +759,6 @@ public class PersistenceBD implements PersistenceInterface {
             delete.setString(1, codigoComentario);
 
             int filasAfectadas = delete.executeUpdate();
-
             if (filasAfectadas == 1) {
                 exito = true;
             }
@@ -862,7 +777,8 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-            update = conexion.prepareStatement("UPDATE " + nameBD + ".Comentarios SET FechaHora=?, CodigoProducto=?, Email=?, Nombre=?, Comentario=? WHERE CodigoComentario=?");
+            update = conexion.prepareStatement("UPDATE " + nameBD + ".Comentarios SET FechaHora=?, CodigoProducto=?, "
+                    + "Email=?, Nombre=?, Comentario=? WHERE CodigoComentario=?");
             update.setString(1, comentario.getFechaHora());
             update.setString(2, comentario.getCodigoProducto());
             update.setString(3, comentario.getEmail());
@@ -870,8 +786,7 @@ public class PersistenceBD implements PersistenceInterface {
             update.setString(5, comentario.getComentario());
             update.setString(6, comentario.getCodigoComentario());
 
-            int filasAfectadas = update.executeUpdate();
-            
+            int filasAfectadas = update.executeUpdate();          
             conexion.close();
             if (filasAfectadas == 1) {
                 exito = true;
@@ -889,21 +804,18 @@ public class PersistenceBD implements PersistenceInterface {
         LinkedList<Comentario> comentarios = new LinkedList<Comentario>();
         Connection conexion = null;
         PreparedStatement select = null;
-        ResultSet rs = null;
-        
+        ResultSet rs = null;        
         try {  
             conexion = pool.getConnection();
             select = conexion.prepareStatement("SELECT * FROM " + nameBD + ".Comentarios WHERE " + campo + "=? ORDER BY FechaHora DESC");
             select.setString(1, valor);
             rs = select.executeQuery();
-
             while (rs.next()) {
                 Comentario comment = new Comentario(rs.getString("CodigoComentario"), rs.getDate("FechaHora").toString(),
                         rs.getTime("FechaHora").toString(), rs.getString("CodigoProducto"), rs.getString("Email"),
                         rs.getString("Nombre"), rs.getString("Comentario"));
                 comentarios.add(comment);
             }
-
             if (comentarios.size() <= 0) {
                 comentarios = null;
             }
@@ -925,15 +837,14 @@ public class PersistenceBD implements PersistenceInterface {
         ResultSet rs = null;
         try {
             conexion = pool.getConnection();
-
             select = conexion.prepareStatement("SELECT * FROM " + nameBD + ".Comentarios WHERE CodigoComentario=?");
             select.setString(1, codComentario);
-            rs = select.executeQuery();
-            
+            rs = select.executeQuery();            
             while (rs.next()) {
-                comment = new Comentario(rs.getString("CodigoComentario"), rs.getDate("FechaHora").toString(), rs.getTime("FechaHora").toString(), rs.getString("CodigoProducto"), rs.getString("Email"), rs.getString("Nombre"), rs.getString("Comentario"));
+                comment = new Comentario(rs.getString("CodigoComentario"), rs.getDate("FechaHora").toString(), 
+                        rs.getTime("FechaHora").toString(), rs.getString("CodigoProducto"),
+                        rs.getString("Email"), rs.getString("Nombre"), rs.getString("Comentario"));
             }
-
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "Error obteniendo comentario", ex);
         } finally {
@@ -941,5 +852,36 @@ public class PersistenceBD implements PersistenceInterface {
             cerrarResultSet(rs);
         }
         return comment;
+    }
+
+
+    private void cerrarConexionYStatement(Connection conexion, Statement... statements) {
+        try {
+            conexion.close();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error al cerrar una conexión a la base de datos", ex);
+        } finally {
+            for (Statement statement : statements) {
+                if (statement != null) {
+                    try {
+                        statement.close();
+                    } catch (SQLException ex) {
+                        logger.log(Level.SEVERE, "Error al cerrar un statement", ex);
+                    }
+                }
+            }
+        }
+    }
+
+    private void cerrarResultSet(ResultSet... results) {
+        for (ResultSet rs : results) {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    logger.log(Level.SEVERE, "Error al cerrar un resultset", ex);
+                }
+            }
+        }
     }
 }

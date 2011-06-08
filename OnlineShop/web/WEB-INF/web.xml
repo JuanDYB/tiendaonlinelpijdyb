@@ -212,7 +212,7 @@
     <!-- Parametro de contexto - Metodo de persistencia -->
     <context-param>
         <param-name>persistenceMethod</param-name>
-        <param-value>pool</param-value>
+        <param-value>file</param-value>
     </context-param>
     <!-- Parametro de contexto - Archivo clientes - JNDIPool -->
     <context-param>

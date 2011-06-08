@@ -3,7 +3,6 @@ package modelo;
 import java.io.Serializable;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class Usuario implements Serializable{
@@ -14,7 +13,6 @@ public class Usuario implements Serializable{
     private char permisos;
 
     public Usuario (){
-
     }
 
     public Usuario(String nombre, String dir, String mail, String pass, char permisos) {
@@ -52,7 +50,4 @@ public class Usuario implements Serializable{
             return "Cliente registrado";
         }
     }
-
-    
-
 }

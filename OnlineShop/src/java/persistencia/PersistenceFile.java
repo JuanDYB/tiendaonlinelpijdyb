@@ -25,12 +25,12 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class PersistenceFile implements PersistenceInterface {
 
-    private static final PersistenceFile persistence = new PersistenceFile();//@cambio
+    private static final PersistenceFile persistence = new PersistenceFile();
+    private static final Logger logger = Logger.getLogger(PersistenceFile.class.getName());
     private String file;
     private String historiales;
     private String fileLog;
@@ -59,7 +59,6 @@ public class PersistenceFile implements PersistenceInterface {
         this.historiales = historiales;
         this.fileLog = log;
         this.recoverFile = recover;
-
         try {
             File archivoDatos = new File(file);
 
@@ -72,13 +71,11 @@ public class PersistenceFile implements PersistenceInterface {
                 comentarios = (Map<String, Comentario>) objectInputStream.readObject();
             }
             return true;
-
-
         } catch (IOException ex) {
-            Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, "Error entrada Salida", ex);
+            logger.log(Level.SEVERE, "Error entrada Salida", ex);
             return false;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, "Clase no encontrada", ex);
+            logger.log(Level.SEVERE, "Clase no encontrada", ex);
             return false;
         }
     }
@@ -88,20 +85,17 @@ public class PersistenceFile implements PersistenceInterface {
         try {
             FileOutputStream outputStream = new FileOutputStream(new File(file));
             ObjectOutputStream objectOutput = new ObjectOutputStream(outputStream);
-
             objectOutput.writeObject(productos);
             objectOutput.writeObject(usuarios);
             objectOutput.writeObject(comentarios);
-
             objectOutput.flush();
             objectOutput.close();
-
             return true;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, "Fichero no enontrado", ex);
+            logger.log(Level.SEVERE, "Fichero no enontrado", ex);
             return false;
         } catch (IOException ex) {
-            Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, "Error de entrada / salida", ex);
+            logger.log(Level.SEVERE, "Error de entrada / salida", ex);
             return false;
         }
     }
@@ -159,8 +153,7 @@ public class PersistenceFile implements PersistenceInterface {
                     borradoComentarios.add(comment.getCodigoComentario());
                 }
             }
-        }
-        
+        }        
         for (int i = 0; i < borradoComentarios.size(); i++) {
             comentarios.remove(borradoComentarios.get(i));
         }
@@ -266,13 +259,14 @@ public class PersistenceFile implements PersistenceInterface {
     }
 
     @Override
-    public boolean saveRequest(String fechaHora, String requestedURL, String remoteAddr, String remoteHost, String method, String param, String userAgent) {
+    public boolean saveRequest(String fechaHora, String requestedURL, String remoteAddr,
+            String remoteHost, String method, String param, String userAgent) {
         PrintWriter escritorLog = null;
-        String add = fechaHora + "#" + requestedURL + "#" + remoteAddr + "#" + remoteHost + "#" + method + "#" + param + "#" + userAgent;
+        String add = fechaHora + "#" + requestedURL + "#" + remoteAddr + "#" + remoteHost + "#" +
+                method + "#" + param + "#" + userAgent;
         if (param == null) {
             param = "";
         }
-
         synchronized (lockLog) {
             try {
                 escritorLog = new PrintWriter(new FileWriter(fileLog, true), true);
@@ -280,7 +274,7 @@ public class PersistenceFile implements PersistenceInterface {
                 escritorLog.close();
                 return true;
             } catch (IOException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 escritorLog.close();
                 return false;
             }
@@ -333,10 +327,10 @@ public class PersistenceFile implements PersistenceInterface {
                 objectOut.close();
                 return true;
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 return false;
             } catch (IOException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 return false;
             }
         }
@@ -373,12 +367,10 @@ public class PersistenceFile implements PersistenceInterface {
         for (int i = 0; i < codigosIncompletos.size(); i++) {
             carros.remove(codigosIncompletos.get(i));
         }
-
         if (carros.isEmpty()) {
             File archivo = new File(recoverFile);
-            return archivo.delete();//@cambio
+            return archivo.delete();
         }
-
         for (Carrito cart : carros.values()) {
             if (saveCart(cart, false, cart.getFecha() + " " + cart.getHora(), "") == false) {
                 return false;
@@ -440,9 +432,11 @@ public class PersistenceFile implements PersistenceInterface {
     }
 
     @Override
-    public boolean newComment(Usuario user, String codigoProducto, String codigoComentario, String fechaHora, String comentario) {
+    public boolean newComment(Usuario user, String codigoProducto, String codigoComentario,
+            String fechaHora, String comentario) {
         String[] fecha = fechaHora.split(" ");
-        Comentario comment = new Comentario(codigoComentario, fecha[0], fecha[1], codigoProducto, user.getMail(), user.getNombre(), comentario);
+        Comentario comment = new Comentario(codigoComentario, fecha[0], fecha[1], codigoProducto,
+                user.getMail(), user.getNombre(), comentario);
         synchronized (lockComentarios) {
             if (comentarios.containsKey(codigoComentario) == true) {
                 return false;
@@ -489,13 +483,11 @@ public class PersistenceFile implements PersistenceInterface {
                 }
             }
         }
-
         if (resultados.size() > 0) {
             return resultados;
         } else {
             return null;
         }
-
     }
 
     @Override
@@ -551,9 +543,7 @@ public class PersistenceFile implements PersistenceInterface {
         synchronized (lockCarritos) {
             try {
                 ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream(archivoCarritos));
-
                 Carrito cart = (Carrito) objectInput.readObject();
-
                 while (cart != null) {
                     historia.put(cart.getCodigo(), cart);
 
@@ -574,20 +564,20 @@ public class PersistenceFile implements PersistenceInterface {
                 }
 
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 return null;
             } catch (EOFException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 if (historia.size() > 0) {
                     return historia;
                 } else {
                     return null;
                 }
             } catch (IOException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 return null;
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PersistenceFile.class.getName()).log(Level.SEVERE, ex.getMessage());
+                logger.log(Level.SEVERE, ex.getMessage());
                 return null;
             }
         }

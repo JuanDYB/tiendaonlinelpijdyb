@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author Juan Díez-Yanguas Barber
  */
 public class Carrito implements Serializable{
@@ -18,7 +17,6 @@ public class Carrito implements Serializable{
     private String formaPago;
 
     public Carrito (){
-
     }
 
     public Carrito(String codigo, String user) {
@@ -39,10 +37,8 @@ public class Carrito implements Serializable{
         this.fecha = fecha;
         this.hora = hora;
         this.formaPago = formaPago;
-    }
+    }  
     
-    
-
     public void addProduct (String newProd, int cantidad, double prodPrice){
         if (this.articulos.containsKey(newProd) == true){
             int cant = this.articulos.get(newProd) + cantidad;
@@ -73,7 +69,6 @@ public class Carrito implements Serializable{
         this.precio -= (prodPrice * this.articulos.get(prod));
         this.articulos.remove(prod);
     }
-
 
     public void delProduct (String prod){
         this.articulos.remove(prod);
@@ -133,6 +128,5 @@ public class Carrito implements Serializable{
 
     public void setHora(String hora) {
         this.hora = hora;
-    }
-    
+    }    
 }

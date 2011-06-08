@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Refresh" content="3; url=/index.jsp" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Sesión cerrada</title>
+<title>Sesi&oacute;n cerrada</title>
 <link rel="stylesheet" type="text/css" href="/css/screen_yellow.css" media="screen, tv, projection" />
 </head>
 
@@ -26,8 +26,8 @@
     <!-- Contenido de la columna derecha -->
     <div id="contentRight">
         <p>
-            <span class="header" >Sesión cerrada con éxito</span> <br />
-            Sera redirigido en 3 segundos a la página principal, si no se redirige automáticamente haga click <a href="/index.jsp">aquí</a>
+            <span class="header" >Sesi&oacute;n cerrada con &eacute;xito</span> <br />
+            Sera redirigido en 3 segundos a la p&acute;gina principal, si no se redirige autom&acute;ticamente haga click <a href="/index.jsp">aqu&iacute;</a>
             
         </p>
 

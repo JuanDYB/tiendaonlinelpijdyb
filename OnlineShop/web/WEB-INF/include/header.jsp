@@ -8,7 +8,7 @@
     <span class="title">
       <span class="white">Tienda On</span>line
       <span class="subTitle">
-        &copy; Juan Díez-Yanguas Barber
+          &copy; Juan D&iacute;ez-Yanguas Barber
       </span>
     </span>
 
@@ -23,7 +23,7 @@
     <% if (auth == null || auth == false){ %>
         <a href="/login.jsp" <%= menuLogin %> >Login / Registro<span class="desc">iniciar</span></a>
     <% }else { %>
-        <a href="/logout" <%= menuLogin %> >Cerrar sesión<span class="desc">salir</span></a>
+    <a href="/logout" <%= menuLogin %> >Cerrar sesi&oacute;n<span class="desc">salir</span></a>
     <% } %>
     
     <a href="/shop/products.jsp" <%= menuProductos %> >Productos<span class="desc">Nuestros productos</span></a>

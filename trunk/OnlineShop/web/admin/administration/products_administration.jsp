@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Gestión de productos</title>
+<title>Gesti&oacute;n de productos</title>
 
 <script type="text/javascript" src="/scripts/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="/scripts/vanadium.js"></script>
@@ -32,26 +32,26 @@
     
     <!-- Contenido de la columna derecha -->
     <div id="contentRight">
-        <%-- Quito los areibutos de la sesión de añadir y editar productos que se usan por si alguna de las dos operaciones fue abandonada sin acabar --%>
+        <%-- Quito los areibutos de la sesi&oacute;n de a&ntilde;adir y editar productos que se usan por si alguna de las dos operaciones fue abandonada sin acabar --%>
         <% session.removeAttribute("productoEnCursoAdd");
         session.removeAttribute("productoEnCursoEdit");%>
         
         <%@include file="/WEB-INF/include/resultados.jsp" %>
 
     <p>
-        <span class="header">Administración de productos</span><br /><br />
+        <span class="header">Administraci&oacute;n de productos</span><br /><br />
         <span class="subHeader">Funciones disponibles</span>
     </p>
             <p>
         <ul>
-            <li><a href="/admin/administration/addproduct.jsp">Añadir Producto</a></li> <br />
+            <li><a href="/admin/administration/addproduct.jsp">A&ntilde;adir Producto</a></li> <br />
             <li>
                 <form name="busquedaProductos" method="post" action="/shop/search_prod">
                     <input type="hidden" name="redirect" value="/admin/administration/products_administration.jsp" />
                     <input name="term" type="text" class=":alpha :required :only_on_blur" />
                     <select name="campo">
                         <option value="name">Nombre</option>
-                        <option value="desc">Descripción</option>
+                        <option value="desc">Descripci&oacute;n</option>
                         <option value="detail">Detalles</option>
                     </select>
                     <input name="search" value="Buscar productos" type="submit" />
@@ -71,7 +71,7 @@
                 <span class="subHeader">Listado de productos</span><br />
 
                 <table border="0" align="center" width="90%">
-                    <tr class="headerTable"><td>Nombre</td><td>Precio</td><td>Stock</td><td>Descripción</td></tr>
+                    <tr class="headerTable"><td>Nombre</td><td>Precio</td><td>Stock</td><td>Descripci&oacute;n</td></tr>
                     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <% for (Producto prod : productos.values()){ %>
                     <tr class="contentTable">

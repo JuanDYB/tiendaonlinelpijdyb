@@ -52,7 +52,7 @@
         <form method="post" name="editComment" action="/admin/administration/editcomment">
             <input type="hidden" name="codComentario" value="<%= request.getParameter("cod") %>" />
             <b>Comentario</b><br />
-            Puede introducir etiquetas HTML, el texto introducido será verificado<br /><br />
+            Puede introducir etiquetas HTML, el texto introducido ser&aacute; verificado<br /><br />
             <textarea name="comentario" cols="60" rows="5" class=":required :only_on_blur"><%= comment.getComentario().replace("<br />", "") %></textarea><br /><br/>
             <input type="submit" name="editComment" value="Editar comentario" />
         </form>

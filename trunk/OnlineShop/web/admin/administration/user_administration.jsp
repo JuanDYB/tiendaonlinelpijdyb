@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Gestión de usuarios</title>
+<title>Gesti&oacute;n de usuarios</title>
 
 <link rel="stylesheet" type="text/css" href="/css/screen_yellow.css" media="screen, tv, projection" />
 </head>
@@ -37,7 +37,7 @@
 
             if (usuarios != null && usuarios.size() != 0){ %>
             <p>
-                <span class="header" >Administración de usuarios</span>
+                <span class="header" >Administraci&oacute;n de usuarios</span>
                 <table border="0" align="center" width="90%">
                     <tr class="headerTable"><td>&nbsp;</td><td>Nombre</td><td>Email</td><td>Permisos</td></tr>
                     <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>

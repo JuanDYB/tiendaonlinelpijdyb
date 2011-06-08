@@ -1,5 +1,5 @@
 <%@page import="java.util.ArrayList"%>
-<%-- Solo se muestra si hay resultados de una operación que mostrar --%>
+<%-- Solo se muestra si hay resultados de una operaci&oacute;n que mostrar --%>
         <% if (request.getAttribute("resultados")!= null){ %>
         <p>
             <span class="subHeader"><%= request.getAttribute("resultados") %></span>

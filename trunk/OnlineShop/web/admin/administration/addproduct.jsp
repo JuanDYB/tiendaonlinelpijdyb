@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<title>Añadir producto</title>
+<title>A&ntilde;adir producto</title>
 
 <script type="text/javascript" src="/scripts/jquery-1.6.1.js"></script>
 <script type="text/javascript" src="/scripts/vanadium.js"></script>
@@ -53,7 +53,7 @@
 
 
         <p>
-        <span class="header">Añadir producto</span>
+        <span class="header">A&ntilde;adir producto</span>
 
         
         <form name="addprod" method="post" action="/admin/administration/addprod" enctype="multipart/form-data" >
@@ -64,7 +64,7 @@
             <input type="text" name="price" maxlength="10" size="13" class=":number :required :only_on_blur" <%= precio %> /><br /><br />
             <b>Unidades en stock</b> <br />
             <input type="text" name="stock" maxlength="6" size="8" class=":digits :required :only_on_blur" <%= stock %> /><br /><br />
-            <b>Descripción corta</b> <br />
+            <b>Descripci&oacute;n corta</b> <br />
             <input type="text" name="desc" maxlength="100" size ="50" class=":required :only_on_blur" <%= descripcion %> /><br /><br />
             <b>Escoja una foto de producto</b>&nbsp;(Opcional)<br />
             <input type="file" name="foto" /><br /><br />

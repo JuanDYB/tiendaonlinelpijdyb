@@ -9,9 +9,9 @@
       <span class="subHeader">Opciones</span>
         <a href="/admin/preferences.jsp" title="Preferencias" class="menuItem">Preferencias</a>
         <% if (actualUser.getPermisos() != 'a'){ %>
-        <a href="/admin/salesrecord.jsp" title="Historial de compras" class="menuItem">Histórico de compras</a>
+        <a href="/admin/salesrecord.jsp" title="Historial de compras" class="menuItem">Hist&oacute;rico de compras</a>
         <% } %>
-        <a href="/logout" title="Cerrar sesi&uacute;n" class="menuItem">Cerrar sesión</a>
+        <a href="/logout" title="Cerrar sesi&uacute;n" class="menuItem">Cerrar sesi&oacute;n</a>
   </p>
   <% if ( actualUser.getPermisos() == 'a' ){ %>
   <p>

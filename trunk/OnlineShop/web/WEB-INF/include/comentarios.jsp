@@ -55,7 +55,7 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
                         <form method="post" name="comentarios" action="/admin/newcomment">
                             <input type="hidden" name="prod" value="<%= prod.getCodigo()%>" />
                             <p><span class="header" >Publicar un comentario</span></p>
-                            Puede usar HTML (el html introducido será analizado en busca de etiquetas no permitidas)<br /><br />
+                            Puede usar HTML (el html introducido ser&aacute; analizado en busca de etiquetas no permitidas)<br /><br />
                             <textarea id="comentario" name="comentario" cols="60" rows="5" class=":required :only_on_blur"></textarea><br /><br />
                             <input type="submit" name="send" value="Enviar comentario" />
                         </form>

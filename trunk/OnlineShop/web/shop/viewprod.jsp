@@ -46,7 +46,7 @@
                 <!-- Contenido de la columna derecha -->
                 <div id="contentRight">
 
-                    <%-- Resultados de la operación --%>
+                    <%-- Resultados de la operaci&oacute;n --%>
                     <%@include file="/WEB-INF/include/resultados.jsp" %>
 
                     <% if (prod == null) {%>
@@ -54,7 +54,7 @@
                         <span class="header">Producto no encontrado</span>
                     </p>
                     <p>
-                        El producto seleccionado no se ha encontrado. Posiblemente esta petición fue alterada <br />
+                        El producto seleccionado no se ha encontrado. Posiblemente esta petici&oacute;n fue alterada <br />
                         Puede volver al <a href="/shop/products.jsp">listado de productos</a>
                     </p>
                     <% } else {%>
@@ -70,12 +70,12 @@
                         <ul>
                             <li> <b>Precio: </b><%= Tools.roundDouble(prod.getPrecio())%> &euro; </li>
                             <li> <b>Disponibilidad: </b> <%= prod.getDisponibilidad()%> </li>
-                            <li> <b>Descripción: </b> <%= prod.getDesc()%> </li>
+                            <li> <b>Descripci&oacute;n: </b> <%= prod.getDesc()%> </li>
 
                         </ul>
                     </p>
                             <p>
-                                <a href="/shop/addcart?prod=<%= prod.getCodigo() %>&cant=1"><img src="/images/icons/addCarro.png" alt="añadir a la cesta" title="Añadir producto a la cesta"/></a>
+                                <a href="/shop/addcart?prod=<%= prod.getCodigo() %>&cant=1"><img src="/images/icons/addCarro.png" alt="a&ntilde;adir a la cesta" title="A&ntilde;adir producto a la cesta"/></a>
                             </p>
                     <p>
                         <span class="subHeader">Detalles del producto</span><br />

@@ -38,9 +38,9 @@
         <span class="header">Productos en la cesta</span>
         <% Carrito carro = (Carrito) session.getAttribute("carrito");
         if (carro == null){%>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else if (carro.getArticulos().size() == 0){ %>
-            No se han añadido productos a la cesta de la compra
+            No se han a&ntilde;adido productos a la cesta de la compra
         <% } else { %>
         <p>
         <table border="0" align="center" width="90%">
@@ -81,14 +81,14 @@
                 <input type="hidden" name="dir" value="<%= user.getDir() %>" />
                 <input type="hidden" name="email" value="<%= user.getMail() %>" />
                 <b>Nombre: </b><%= user.getNombre() %><br />
-                <b>Dirección: </b><%= user.getDir() %><br />
+                <b>Direcci&oacute;n: </b><%= user.getDir() %><br />
                 <b>Email: </b><%= user.getMail() %><br />    
             <% }
         }else{ %>
             Nombre<br />
             <input type="text" name="name" size="50" maxlength="100" class=":alpha :required :only_on_blur"/><br /><br />
 
-            Dirección<br />
+            Direcci&oacute;n<br />
             Ejemplo: Calle, 1 28002-Madrid<br />
             <input type="text" name="dir" size="30" maxlength="60" class=":required :only_on_blur"/><br /><br />
 

@@ -31,12 +31,12 @@
         <span class="subHeader" >Datos de usuario</span>
         <ul>
             <li><b>Nombre: </b><%= actualUser.getNombre() %></li>
-            <li><b>Dirección: </b><%= actualUser.getDir() %></li>
+            <li><b>Direcci&oacute;n: </b><%= actualUser.getDir() %></li>
             <li><b>Email: </b><%= actualUser.getMail() %></li>
             <li><b>Tipo de usuario: </b><%= actualUser.getPrintablePermissions() %></li>
         </ul>
         <br />
-        <p>Puede usar el menú de la derecha para acceder a las preferencias</p>
+        <p>Puede usar el men&uacute; de la derecha para acceder a las preferencias</p>
     </p>  
       <!-- Crea las esquinas redondeadas abajo -->
       <img src="/images/template/corner_sub_bl.gif" alt="bottom corner" class="vBottom"/>

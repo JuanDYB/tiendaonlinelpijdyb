@@ -51,7 +51,7 @@
                     <p>
                         <ul>
                             <li><b>Nombre: </b><%= user.getNombre()%></li>
-                            <li><b>Dirección: </b><%= user.getDir()%></li>
+                            <li><b>Direcci&oacute;n: </b><%= user.getDir()%></li>
                             <li><b>Email: </b><%= user.getMail()%></li>
                             <li><b>Tipo de usuario: </b><%= user.getPrintablePermissions()%></li>
                         </ul>

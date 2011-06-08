@@ -33,11 +33,11 @@
         <img src="/images/icons/restrictedArea.png" alt="lock" align="left" />
             <br />
             <br />
-        No puede acceder al panel de preferencias. No está registrado.
+        No puede acceder al panel de preferencias. No est&aacute; registrado.
         <br />
         <br />
-        Será redirigido en 3 segundos a la página de registro<br /><br />
-        Si no quiere esperar haga click <a href="/login.jsp">aquí</a>
+        Ser&aacute; redirigido en 3 segundos a la p&aacute;gina de registro<br /><br />
+        Si no quiere esperar haga click <a href="/login.jsp">aqu&iacute;</a>
         <br /><br /><br /><br /><br />
     </p>
 

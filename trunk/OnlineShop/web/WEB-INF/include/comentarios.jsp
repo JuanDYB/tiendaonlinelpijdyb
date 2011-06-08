@@ -62,7 +62,7 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
                     </p>
                     <% }else{ %>
                     <p>
-                        Si desea añadir un comentario debe <a href="/login.jsp#register" >registrarse</a> o <a href="/login.jsp">iniciar sesión</a>
+                        Si desea a&ntilde;adir un comentario debe <a href="/login.jsp#register" >registrarse</a> o <a href="/login.jsp">iniciar sesi&oacute;n</a>
                     </p>
                     <% } %>
 

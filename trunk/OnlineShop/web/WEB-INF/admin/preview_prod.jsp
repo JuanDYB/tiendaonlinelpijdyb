@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Previsualización de producto</title>
+<title>Previsualizaci&oacute;n de producto</title>
 <link rel="stylesheet" type="text/css" href="/css/screen_yellow.css" media="screen, tv, projection" />
 </head>
 
@@ -54,7 +54,7 @@
            
         %>
         <p>
-            <span class="header" >Previsualización del producto: <%= nombre %></span> <br />
+            <span class="header" >Previsualizaci&oacute;n del producto: <%= nombre %></span> <br />
             <% boolean imagen = false;
             if (Tools.fileExists(application.getRealPath("/images/products/" + codigo)) == true){
             imagen = true;%>
@@ -65,7 +65,7 @@
             <ul>
                 <li><b>Precio: </b><%= precio %> &euro;</li><br />
                 <li><b>Stock disponible: </b><%= stock %> unidades</li><br />
-                <li><b>Descripción: </b><%= desc %></li><br />
+                <li><b>Descripci&oacute;n: </b><%= desc %></li><br />
                 <li><b>Detalles: </b><br /><%= detalles %></li>
             </ul>
             <br />
@@ -79,7 +79,7 @@
             <a style="margin-left: 15em" href="/admin/administration/addprod">Confirmar nuevo producto</a>
             <% } else{ %>
             <a style="margin-left: 2em" href="/admin/administration/modifyprod.jsp">Editar datos</a>
-            <a style="margin-left: 15em" href="/admin/administration/editprod">Confirmar edición de producto</a>
+            <a style="margin-left: 15em" href="/admin/administration/editprod">Confirmar edici&oacute;n de producto</a>
             <% } %>
         </p>
 

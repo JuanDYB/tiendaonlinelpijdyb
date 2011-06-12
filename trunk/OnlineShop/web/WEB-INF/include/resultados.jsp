@@ -3,7 +3,6 @@
 <% if (request.getAttribute("resultados") != null) {%>
 <p>
     <span class="subHeader"><%= request.getAttribute("resultados")%></span></p>
-<br />
 <img src="/images/icons/information.png" alt="information" align="left" />
 <ul style="margin-left: 4em">
     <%ArrayList<String> listado = (ArrayList<String>) request.getAttribute("listaResultados");
@@ -12,4 +11,5 @@
     <% }%>
 </ul>
 <br />
+<br /><br /><br />
 <% }%>

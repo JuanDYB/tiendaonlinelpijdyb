@@ -71,4 +71,9 @@ public class EditUserServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para edición de los datos de un cliente (usado por los clientes)";
+    }
 }

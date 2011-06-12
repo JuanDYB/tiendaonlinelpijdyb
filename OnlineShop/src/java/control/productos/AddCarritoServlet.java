@@ -78,4 +78,9 @@ public class AddCarritoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.sendError(404);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet encargado de añadir un producto al carrito";
+    }
 }

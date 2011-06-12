@@ -78,4 +78,9 @@ public class EditCommentServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet que permite a los administradores editar comentarios";
+    }
 }

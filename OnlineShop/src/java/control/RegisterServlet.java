@@ -105,4 +105,9 @@ public class RegisterServlet extends HttpServlet {
             }
         }
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para el registro de usuarios (clientes)";
+    }
 }

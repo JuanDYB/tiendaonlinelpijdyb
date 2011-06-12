@@ -75,5 +75,10 @@ public class UpdateCartServlet extends HttpServlet {
             response.sendError(404);
         }
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para actualizar carrito de la compra verificando productos y cantidades de los mismos";
+    }
 
 }

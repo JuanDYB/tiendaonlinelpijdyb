@@ -81,4 +81,9 @@ public class DeleteUserServlet extends HttpServlet {
 
 
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para el borrado de un cliente";
+    }
 }

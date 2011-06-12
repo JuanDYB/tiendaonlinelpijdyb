@@ -110,4 +110,9 @@ public class AddProductServlet extends HttpServlet {
         }
         return false;
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para añadir productos al catálogo";
+    }
 }

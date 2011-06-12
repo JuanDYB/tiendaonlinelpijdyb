@@ -62,4 +62,9 @@ public class DeleteProductServlet extends HttpServlet {
             return false;
         }
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para borrado de un producto";
+    }
 }

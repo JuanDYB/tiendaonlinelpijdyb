@@ -36,4 +36,9 @@ public class LogOutServlet extends HttpServlet {
     throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo(){
+        return "Servlet encargado del cierre de sesión de usuarios";
+    }
 }

@@ -85,4 +85,9 @@ public class EditUserCompleteServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para la edición de clientes (usado por el administrador)";
+    }
 }

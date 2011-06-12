@@ -75,4 +75,9 @@ public class SearchProductServlet extends HttpServlet {
     throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet encargado de la búsqueda de productos dentro de la lista";
+    }
 }

@@ -56,7 +56,7 @@
         <p>
             <span class="header" >Previsualizaci&oacute;n del producto: <%= nombre %></span> <br />
             <% boolean imagen = false;
-            if (Tools.fileExists(application.getRealPath("/images/products/" + codigo)) == true){
+            if (Tools.existeElFichero(application.getRealPath("/images/products/" + codigo)) == true){
             imagen = true;%>
             <a href="/images/products/<%= codigo %>" target="_blank">
                 <img src ="/images/products/<%= codigo %>" alt="imagen producto" height="400" width="450" align="right"/>

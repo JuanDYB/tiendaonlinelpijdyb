@@ -53,9 +53,9 @@
 
 
         <p>
-        <span class="header">A&ntilde;adir producto</span>
+            <span class="header">A&ntilde;adir producto</span>
+        </p>
 
-        
         <form name="addprod" method="post" action="/admin/administration/addprod" enctype="multipart/form-data" >
 
             <b>Nombre</b> <br />
@@ -73,7 +73,6 @@
             <textarea name="detail" cols="60" rows="15" class=":required :only_on_blur"><%= detalles.replace("<br />", "\n") %></textarea><br /><br />
             <input type="submit" name="sendProd" value="Enviar datos" />
         </form>
-        </p>
       <!-- Crea las esquinas redondeadas abajo -->
       <img src="/images/template/corner_sub_bl.gif" alt="bottom corner" class="vBottom" />
 

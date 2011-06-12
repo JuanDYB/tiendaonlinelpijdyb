@@ -38,9 +38,10 @@
             if (usuarios != null && usuarios.size() != 0){ %>
             <p>
                 <span class="header" >Administraci&oacute;n de usuarios</span>
+            </p>
                 <table border="0" align="center" width="90%">
-                    <tr class="headerTable"><td>&nbsp;</td><td>Nombre</td><td>Email</td><td>Permisos</td></tr>
-                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr class="headerTable"><td>&nbsp;</td><td>Nombre</td><td>Email</td><td>Permisos</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <% int numberAdmin = ((PersistenceInterface) application.getAttribute("persistence")).anyAdmin();
                     for (Usuario user : usuarios.values()){ %>
                     <tr class="contentTable">
@@ -59,7 +60,6 @@
                     </tr>
                     <% } %>
                 </table>
-            </p>
                 <% } else { %>
                 <p>No se han encontrado usuarios</p>
                 <% } %>

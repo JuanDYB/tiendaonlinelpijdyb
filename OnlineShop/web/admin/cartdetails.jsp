@@ -48,6 +48,7 @@
                         ArrayList<Producto> listado = persistencia.getDetailsCartRecord(request.getParameter("cod"));%>
                     <p>
                         <span class="header" >Detalles de la venta: <span class="headerComplement"><%= request.getParameter("cod")%></span></span>
+                    </p>
                         <table border="0" align="center" width="90%">
                             <tr class="headerTable"><td>Producto</td><td>Unidades</td><td>Precio Unidad</td><td>Precio</td></tr>
                             <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -69,7 +70,6 @@
                         </p>
                         <% }%>
 
-                    </p>
                     <% } else {%>
                     <span class="header" >Error en la solicitud </span>
                     <p>No se han encontrado registros de ventas para esta solicitud</p>

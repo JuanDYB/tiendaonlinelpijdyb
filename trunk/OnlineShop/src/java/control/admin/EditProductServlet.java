@@ -102,4 +102,9 @@ public class EditProductServlet extends HttpServlet {
             }
         }
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet encargado de la edición de productos";
+    }
 }

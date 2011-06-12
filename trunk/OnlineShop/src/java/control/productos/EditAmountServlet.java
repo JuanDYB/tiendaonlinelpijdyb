@@ -84,4 +84,9 @@ public class EditAmountServlet extends HttpServlet {
             return false;
         }
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para la edición de cantidad de un producto en la cesta";
+    }
 }

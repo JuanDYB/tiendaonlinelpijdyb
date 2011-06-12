@@ -11,7 +11,7 @@ import org.owasp.esapi.errors.IntrusionException;
 import persistencia.PersistenceInterface;
 
 /**
- * @author JuanDYB
+ * @author Juan Díez-Yanguas Barber
  */
 public class AddCommentServlet extends HttpServlet {
     
@@ -68,5 +68,10 @@ public class AddCommentServlet extends HttpServlet {
         }else{
             return false;
         }
+    }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para añadir comentarios a un producto";
     }
 }

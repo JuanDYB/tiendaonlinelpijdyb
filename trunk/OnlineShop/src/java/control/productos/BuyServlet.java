@@ -203,4 +203,9 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet que realiza la compra definitiva de un producto";
+    }
 }

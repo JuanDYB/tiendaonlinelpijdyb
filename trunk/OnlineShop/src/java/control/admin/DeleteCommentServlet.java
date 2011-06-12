@@ -54,4 +54,9 @@ public class DeleteCommentServlet extends HttpServlet {
         
         response.sendError(404);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para el borrado de comentarios";
+    }
 }

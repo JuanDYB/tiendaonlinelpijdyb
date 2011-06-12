@@ -41,8 +41,8 @@ public class Carrito implements Serializable{
     
     public void addProduct (String newProd, int cantidad, double prodPrice){
         if (this.articulos.containsKey(newProd) == true){
-            int cant = this.articulos.get(newProd) + cantidad;
-            this.articulos.put(newProd, cant);
+            int newCant = this.articulos.get(newProd) + cantidad;
+            this.articulos.put(newProd, newCant);
             this.precio += (cantidad * prodPrice);
         }else{
             this.articulos.put(newProd, cantidad);

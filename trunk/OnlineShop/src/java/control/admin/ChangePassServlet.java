@@ -87,4 +87,9 @@ public class ChangePassServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+    
+    @Override
+    public String getServletInfo (){
+        return "Servlet para cambiar contraseña del cliente (usado por los clientes)";
+    }
 }

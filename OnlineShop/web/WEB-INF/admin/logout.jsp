@@ -27,7 +27,7 @@
     <div id="contentRight">
         <p>
             <span class="header" >Sesi&oacute;n cerrada con &eacute;xito</span> <br />
-            Sera redirigido en 3 segundos a la p&acute;gina principal, si no se redirige autom&acute;ticamente haga click <a href="/index.jsp">aqu&iacute;</a>
+            Sera redirigido en 3 segundos a la p&aacute;gina principal, si no se redirige autom&aacute;ticamente haga click <a href="/index.jsp">aqu&iacute;</a>
             
         </p>
 

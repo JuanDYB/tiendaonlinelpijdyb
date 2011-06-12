@@ -7,5 +7,4 @@
     <div id="footerRight">
         Laboratorio de Programaci&oacute;n para Internet &nbsp;&nbsp; 2011 &nbsp;&nbsp;
     </div>
-
-  </div>
+</div>

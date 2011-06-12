@@ -39,7 +39,8 @@
         Producto prod = persistence.getProduct(request.getParameter("prod"));
         if (prod != null){ %>
         <p>
-        <span class="header">Borrar producto: <%= prod.getNombre() %></span>
+            <span class="header">Borrar producto: <%= prod.getNombre() %></span>
+        </p>
         <ul>
                 <li><b>Precio: </b><%= Tools.roundDouble(prod.getPrecio()) %> &euro;</li><br />
                 <li><b>Stock disponible: </b><%= prod.getStock() %> unidades</li><br />
@@ -49,7 +50,6 @@
         <p>¿Esta seguro de que desea borrar el producto?</p>
         <a style="margin-left: 2em" href="/admin/administration/products_administration.jsp">No eliminar</a>
         <a style="margin-left: 15em" href="/admin/administration/delprod?prod=<%= prod.getCodigo() %>">Eliminar producto</a>
-        </p>
         <% } else{ %>
         <p>
         <span class="header">Producto no encontrado</span><br />

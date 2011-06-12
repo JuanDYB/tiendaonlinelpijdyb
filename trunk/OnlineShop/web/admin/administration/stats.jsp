@@ -1,5 +1,5 @@
 <%@page import="modelo.Carrito"%>
-<%@page import="control.StatGenerator"%>
+<%@page import="control.GeneradorDeEstadiaticasDeVentas"%>
 <%@page import="persistencia.PersistenceInterface"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
@@ -38,7 +38,7 @@
                     <p>
                         <span class="header" >Estad&iacute;sticas de ventas</span>
                     </p>
-                    <% StatGenerator ventasSemana = new StatGenerator(historial);
+                    <% GeneradorDeEstadiaticasDeVentas ventasSemana = new GeneradorDeEstadiaticasDeVentas(historial);
                         if (ventasSemana.graficoNumVentasSemana(application.getRealPath("/images/stats/ventasSemana.jpg")) == true) {%>
 
                     <p><span class="headerTable" style="text-align: center" >N&uacute;mero de compras por dias de la semana</span></p>
@@ -51,7 +51,7 @@
 
                     <% }%>
 
-                    <% StatGenerator priceVentasSemana = new StatGenerator(historial);
+                    <% GeneradorDeEstadiaticasDeVentas priceVentasSemana = new GeneradorDeEstadiaticasDeVentas(historial);
                         if (priceVentasSemana.graficoGanadoPorDia(application.getRealPath("/images/stats/porcentajeGastadoDia.jpg")) == true) {%>
 
                     <p><span class="headerTable" style="text-align: center" >Media que se suelen gastar los clientes por compra por dias de la semana</span></p>
@@ -62,7 +62,7 @@
                     <p>Error generando el gr&aacute;fico</p>
                     <% }%>
 
-                    <% StatGenerator procentajeProdDia = new StatGenerator(historial);
+                    <% GeneradorDeEstadiaticasDeVentas procentajeProdDia = new GeneradorDeEstadiaticasDeVentas(historial);
                         if (procentajeProdDia.porcentajeProductosVendidosMes(persistencia, application.getRealPath("/images/stats/porcentajeVendidosDia.jpg")) == true) {%>
 
                     <p><span class="headerTable" style="text-align: center" >Porcentaje de productos vendidos por mes</span></p>

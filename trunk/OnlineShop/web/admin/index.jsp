@@ -29,6 +29,7 @@
     <p>
         <span class="header" >Panel de preferencias</span><br />
         <span class="subHeader" >Datos de usuario</span>
+    </p>
         <ul>
             <li><b>Nombre: </b><%= actualUser.getNombre() %></li>
             <li><b>Direcci&oacute;n: </b><%= actualUser.getDir() %></li>
@@ -36,8 +37,7 @@
             <li><b>Tipo de usuario: </b><%= actualUser.getPrintablePermissions() %></li>
         </ul>
         <br />
-        <p>Puede usar el men&uacute; de la derecha para acceder a las preferencias</p>
-    </p>  
+        <p>Puede usar el men&uacute; de la derecha para acceder a las preferencias</p>  
       <!-- Crea las esquinas redondeadas abajo -->
       <img src="/images/template/corner_sub_bl.gif" alt="bottom corner" class="vBottom"/>
     

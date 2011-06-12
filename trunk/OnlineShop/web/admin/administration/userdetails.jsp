@@ -48,14 +48,12 @@
                         No se ha encontrado el usuario solicitado
                     </p>
                     <% } else {%>
-                    <p>
                         <ul>
                             <li><b>Nombre: </b><%= user.getNombre()%></li>
                             <li><b>Direcci&oacute;n: </b><%= user.getDir()%></li>
                             <li><b>Email: </b><%= user.getMail()%></li>
                             <li><b>Tipo de usuario: </b><%= user.getPrintablePermissions()%></li>
                         </ul>
-                    </p>
                     <% }%>
 
 

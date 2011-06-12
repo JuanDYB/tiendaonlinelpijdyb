@@ -61,11 +61,9 @@
                     <p>
                         <span class="header" >Hoja de producto: <span class="headerComplement" ><%= prod.getNombre()%></span></span>
                         <br />
-                        <% if (Tools.fileExists(application.getRealPath("/images/products/" + prod.getCodigo())) == true){ %>
-                        <a href="/images/products/<%= prod.getCodigo() %>" target="_blank">
+                        <% if (Tools.existeElFichero(application.getRealPath("/images/products/" + prod.getCodigo())) == true){ %>
                             <img src ="/images/products/<%= prod.getCodigo() %>" alt="imagen producto" height="400" width="450" align="right"/>
-                        </a>
-                            <% } %>
+                        <% } %>
                             
                         <ul>
                             <li> <b>Precio: </b><%= Tools.roundDouble(prod.getPrecio())%> &euro; </li>

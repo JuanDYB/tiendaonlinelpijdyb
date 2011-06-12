@@ -14,7 +14,8 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
 
 <%--COMENTARIOS--%>
                     <p>
-                        <span class="header" >Comentarios</span></p>
+                        <span class="header" >Comentarios</span>
+                    </p>
                         <% LinkedList<Comentario> comentarios = persistencia.getComentarios("CodigoProducto", prod.getCodigo());
                             if (comentarios == null) { %>
                     <p>No se han encontrado comentarios para este producto</p>
@@ -30,7 +31,8 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
                                 Fecha:
                                 <span class="textComment"><%= Tools.printDate(comentarios.get(i).getFecha())%> &nbsp; <%=comentarios.get(i).getHora()%></span>
                             </span>
-                            <span style="border-bottom: 1px solid #AAA; clear: both; display: block;"></span></p>
+                            <span style="border-bottom: 1px solid #AAA; clear: both; display: block;"></span>
+                        </p>
 
                         <p><%= comentarios.get(i).getComentario()%></p>
                             <% if (user != null && user.getPermisos() == 'a'){ %>
@@ -51,7 +53,7 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
 
                     <%--FORMULARIO COMENTARIO--%>
                     <% if (user != null) {%>
-                    <p>
+                    <br />
                         <form method="post" name="comentarios" action="/admin/newcomment">
                             <input type="hidden" name="prod" value="<%= prod.getCodigo()%>" />
                             <p><span class="header" >Publicar un comentario</span></p>
@@ -59,7 +61,7 @@ if (session.getAttribute("usuario") != null && session.getAttribute("auth") != n
                             <textarea id="comentario" name="comentario" cols="60" rows="5" class=":required :only_on_blur"></textarea><br /><br />
                             <input type="submit" name="send" value="Enviar comentario" />
                         </form>
-                    </p>
+                    <br />
                     <% }else{ %>
                     <p>
                         Si desea a&ntilde;adir un comentario debe <a href="/login.jsp#register" >registrarse</a> o <a href="/login.jsp">iniciar sesi&oacute;n</a>

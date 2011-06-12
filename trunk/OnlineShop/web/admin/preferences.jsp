@@ -34,6 +34,7 @@
     <p>
         <span class="header">Cambiar contrase&ntilde;a</span><br />
         Puede usar este formulario para cambiar su contrase&ntilde;a
+    </p>
       <form name="changePass" action="/admin/ChangePass" method="post">
       	Contrase&ntilde;a anterior<br />
         <input name="prevPass" type="password" size="25" maxlength="20" class=":password :required :only_on_blur"/><br /><br />
@@ -44,10 +45,10 @@
         
         <input name="changePass" type="submit" value="Cambiar contrase&ntilde;a"/>
         </form>
-      </p>
       
       <p>
-      <span class="header">Cambiar los datos de registro</span><br />
+        <span class="header">Cambiar los datos de registro</span><br />
+      </p>
       Puede usar este formulario para cambiar sus datos personales
       <form name="changeData" action="/admin/edituser" method="post">
       	Nombre<br />
@@ -59,7 +60,6 @@
         
         <input name="changeData" type="submit" value="Modificar perfil" /> 
       </form>
-      </p>
       
       <!-- Crea las esquinas redondeadas abajo -->
       <img src="/images/template/corner_sub_bl.gif" alt="bottom corner" class="vBottom"/>

@@ -28,6 +28,7 @@ public class SaveSessionListener implements HttpSessionListener {
             Carrito cart = (Carrito) session.getAttribute("carrito");
             if (user != null && cart != null && cart.getLenght() > 0){
                 persistencia.deleteImcompleteCartsClient(user.getMail());
+                cart.setUser(user.getMail());
                 persistencia.saveCart(cart, false, Tools.getDate(), null);
             }
         }

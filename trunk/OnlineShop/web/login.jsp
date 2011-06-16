@@ -44,54 +44,55 @@
         <%@include file="/WEB-INF/include/resultados.jsp" %>
         <% if (iniciado == true){ %>
         <p>
-            <span class="header">Sesión ya iniciada</span>
+            <span class="header">Sesi&oacute;n ya iniciada</span>
             <br />
-            Ya tiene sesión iniciada con un usuario. Debe <a href="/logout">cerrar la sesión</a> con este usuario si desea iniciar sesión con otro usuario.
+            Ya tiene sesi&oacute;n iniciada con un usuario. Debe <a href="/logout">cerrar la sesi&oacute;n</a> con este usuario si desea iniciar sesi&oacute;n con otro usuario.
         </p>                
         <% }else{ %>
         
           
     <p>
-        <span class="header">Iniciar sesión</span>
+        <span class="header">Iniciar sesi&oacute;n</span>
+    </p>
 
         <form action="/login" name="login" method="post">
         
         Email<br />
 	<input name="email" type="text" maxlength="60" class=":email :required :only_on_blur" /><br /><br />
         
-        Contraseña<br />
+        Contrase&ntilde;a<br />
         <input name="pass" type="password" size="25"  maxlength="20" class=":password :required :only_on_blur"/><br /><br />
         
-        <input name="login" type="submit" value="Iniciar Sesión" />
+        <input name="login" type="submit" value="Iniciar Sesi&oacute;n" />
         </form>
 
-    </p>
         
     <p>
         <a name="register"></a>
         <span class="header">Registro</span><br />
+    </p>
+        
         <form action="/register" method="post" name="register">
 
         Nombre<br />
         <input name="name" type="text" size="50" maxlength="100" class=":alpha :required :only_on_blur"/><br /><br />
         
-        Dirección<br />
+        Direcci&oacute;n<br />
         Ejemplo: Calle, 1 28002-Madrid<br />
         <input name="dir" type="text" size="70" maxlength="200" class=":dir :required :only_on_blur"/><br /><br />
         
         Email<br />
-        <input name="email" type="text" size="30" maxlength="60" class=":email :required :only_on_blur"/><br /><br />
+        <input id="email" name="email" type="text" size="30" maxlength="60" class=":email :required :only_on_blur :ajax;/checkmail"/><br /><br />
         
-        Contraseña<br />
+        Contrase&ntilde;a<br />
         <input id="pass" name="pass" type="password" size="25" maxlength="20" class=":password :required :only_on_blur"/><br /><br />
         
-        Reescriba la contraseña por seguridad<br />
+        Reescriba la contrase&ntilde;a por seguridad<br />
         <input name="repeatPass" type="password" size="25" maxlength="20" class=":same_as;pass :required :only_on_blur"/><br /><br />
         
         <input name="register" type="submit" value="Enviar datos" />
         
         </form>
-    </p>
         
         <% } %>
         

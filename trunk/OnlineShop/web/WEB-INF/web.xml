@@ -81,6 +81,10 @@
         <servlet-name>EditCommentServlet</servlet-name>
         <servlet-class>control.admin.EditCommentServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckEmailServlet</servlet-name>
+        <servlet-class>control.CheckEmailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ChangePassServlet</servlet-name>
         <url-pattern>/admin/ChangePass</url-pattern>
@@ -212,18 +216,18 @@
     <!-- Parametro de contexto - Metodo de persistencia -->
     <context-param>
         <param-name>persistenceMethod</param-name>
-        <param-value>file</param-value>
+        <param-value>pool</param-value>
     </context-param>
-    <!-- Parametro de contexto - Archivo clientes - JNDIPool -->
+    <!-- Parametro de contexto - Archivo clientes y productos - JNDIPool -->
     <context-param>
         <param-name>archivoDatos</param-name>
         <param-value>jdbc/OnlineShop</param-value>
         <!--<param-value>data.bin</param-value>-->
     </context-param>
-    <!-- Parametro de contexto - Archivo productos - NombreBD -->
+    <!-- Parametro de contexto - Archivo de historiales - NombreBD -->
     <context-param>
         <param-name>archivoHistoriales</param-name>
-        <param-value>****</param-value>
+        <param-value>***</param-value>
         <!--<param-value>history.bin</param-value>-->
     </context-param>
     <!-- Archivo de recuperación de carritos-->
@@ -246,9 +250,10 @@
         <param-name>adminPass</param-name>
         <param-value>Administrador</param-value>
     </context-param>
+    <!-- Configuraciones del servidor SMTP -->
     <context-param>
         <param-name>hostMail</param-name>
-        <param-value>*****</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>TSLMail</param-name>
@@ -260,19 +265,19 @@
     </context-param>
     <context-param>
         <param-name>mailUser</param-name>
-        <param-value>****</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>authMail</param-name>
-        <param-value>true</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>mailFrom</param-name>
-        <param-value>*****</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>mailPass</param-name>
-        <param-value>****</param-value>
+        <param-value>***</param-value>
     </context-param>
     <!-- Pagina de inicio -->
     <welcome-file-list>
@@ -287,6 +292,10 @@
         <error-code>500</error-code>
         <location>/WEB-INF/paginasError/error500.jsp</location>
     </error-page>
+    <servlet-mapping>
+        <servlet-name>CheckEmailServlet</servlet-name>
+        <url-pattern>/checkmail</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

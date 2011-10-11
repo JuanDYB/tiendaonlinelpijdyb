@@ -142,24 +142,24 @@ public class Tools {
 
     public static String getDate() {
         Calendar cal = Calendar.getInstance(Tools.getLocale());
-        String [] fecha = cal.getTime().toString().split(" ");
-        String [] hora = fecha[3].split(":");        
+        String[] fecha = cal.getTime().toString().split(" ");
+        String[] hora = fecha[3].split(":");
 
         return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " "
                 + hora[0] + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
     }
 
-    public static String printDate (String fechaString){
-        String [] fechaSeparada = fechaString.split("-");
-        Calendar cal  = Calendar.getInstance(Tools.getLocale());
+    public static String printDate(String fechaString) {
+        String[] fechaSeparada = fechaString.split("-");
+        Calendar cal = Calendar.getInstance(Tools.getLocale());
         cal.set(Integer.valueOf(fechaSeparada[0]), Integer.valueOf(fechaSeparada[1]), Integer.valueOf(fechaSeparada[2]));
-        String [] date = cal.getTime().toString().split(" ");
+        String[] date = cal.getTime().toString().split(" ");
         return date[2] + "-" + date[1] + "-" + date[5];
     }
-    
+
     public static void validateHTML(String input) {
         try {
-            if (input.equals("") == true){
+            if (input.equals("") == true) {
                 throw new IntrusionException("No se admite el campo vacío", "");
             }
             Policy politica = Policy.getInstance(Tools.class.getResource("/antisamy-tinymce-1.4.4.xml"));
@@ -181,9 +181,10 @@ public class Tools {
     }
 
     public static String getcontentPartText(Part input) {
+        Scanner sc = null;
+        String content = null;
         try {
-            Scanner sc = new Scanner(input.getInputStream(), "UTF-8");
-            String content = null;
+            sc = new Scanner(input.getInputStream(), "UTF-8");
             if (sc.hasNext()) {
                 content = sc.nextLine();
             } else {
@@ -193,29 +194,39 @@ public class Tools {
             return content;
         } catch (IOException ex) {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
-            return null;
+        }finally{
+            sc.close();
         }
+        return content;
     }
 
     public static String getContentTextArea(Part input) {
+        Scanner sc = null;
+        StringBuilder sb = null;
         try {
-            Scanner sc = new Scanner(input.getInputStream(), "UTF-8");
-            StringBuilder sb = new StringBuilder("");
+            sc = new Scanner(input.getInputStream(), "UTF-8");
+            sb = new StringBuilder("");
             while (sc.hasNext()) {
                 sb.append(sc.nextLine());
                 sb.append("\n");
             }
-            sc.close();
-            return sb.toString();
         } catch (IOException ex) {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
+            sb = null;
+        }finally{
+            sc.close();
+        }
+        if (sb == null){
             return null;
+        }else{
+            return sb.toString();
         }
     }
 
     public static boolean guardarImagenDeProdructoEnElSistemaDeFicheros(InputStream input, String fileName)
             throws ServletException {
         FileOutputStream output = null;
+        boolean ok = false;
         try {
             output = new FileOutputStream(fileName);
             int leido = 0;
@@ -226,50 +237,48 @@ public class Tools {
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
-            return false;
-        } catch (IOException ex){
+        } catch (IOException ex) {
             Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
-            return false;
         } finally {
             try {
                 output.flush();
-                return true;
+                output.close();
+                input.close();
+                ok = true;
             } catch (IOException ex) {
-                Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, ex.getMessage());
-                return false;
-            }
-            finally{
-                try {
-                    output.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                Logger.getLogger(Tools.class.getName()).log(Level.SEVERE, "Error cerrando flujo de salida", ex);
             }
         }
+        return ok;
     }
-    
-    public static boolean borrarImagenDeProdructoDelSistemaDeFicheros (String ruta){
-        File imagen = new File (ruta);
+
+    public static boolean borrarImagenDeProdructoDelSistemaDeFicheros(String ruta) {
+        File imagen = new File(ruta);
         return imagen.delete();
     }
-    
-    public static boolean existeElFichero (String ruta){
-        File imagen = new File (ruta);
+
+    public static boolean existeElFichero(String ruta) {
+        File imagen = new File(ruta);
         return imagen.exists();
     }
 
     public static String leerArchivoClassPath(String ruta) {
         StringBuilder texto = new StringBuilder();
         Scanner sc = new Scanner(Tools.class.getResourceAsStream(ruta), "UTF-8");
+
+
         while (sc.hasNext()) {
             texto.append(sc.nextLine());
             texto.append("\n");
         }
+
         sc.close();
+
+
         return texto.toString();
     }
 
-    public static Locale getLocale(){
-        return new Locale ("es", "ES");
+    public static Locale getLocale() {
+        return new Locale("es", "ES");
     }
 }

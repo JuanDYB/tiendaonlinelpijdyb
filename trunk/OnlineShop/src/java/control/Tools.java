@@ -145,14 +145,14 @@ public class Tools {
         String[] fecha = cal.getTime().toString().split(" ");
         String[] hora = fecha[3].split(":");
 
-        return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " "
+        return cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " "
                 + hora[0] + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
     }
 
     public static String printDate(String fechaString) {
         String[] fechaSeparada = fechaString.split("-");
         Calendar cal = Calendar.getInstance(Tools.getLocale());
-        cal.set(Integer.valueOf(fechaSeparada[0]), Integer.valueOf(fechaSeparada[1]), Integer.valueOf(fechaSeparada[2]));
+        cal.set(Integer.valueOf(fechaSeparada[0]), Integer.valueOf(fechaSeparada[1]) -1, Integer.valueOf(fechaSeparada[2]));
         String[] date = cal.getTime().toString().split(" ");
         return date[2] + "-" + date[1] + "-" + date[5];
     }

@@ -47,7 +47,12 @@
             <span class="header">Sesi&oacute;n ya iniciada</span>
             <br />
             Ya tiene sesi&oacute;n iniciada con un usuario. Debe <a href="/logout">cerrar la sesi&oacute;n</a> con este usuario si desea iniciar sesi&oacute;n con otro usuario.
-        </p>                
+        </p>
+        <% } else if (session.getAttribute("intentosLogin") != null && (Integer)session.getAttribute("intentosLogin") >= 5){ %>
+        <p>
+            <span class="header">Inicio de Sesi&oacute;n bloqueado</span>
+            <br />
+        </p>
         <% }else{ %>
         
           

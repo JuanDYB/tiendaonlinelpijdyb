@@ -99,9 +99,10 @@ public class StartListener implements ServletContextListener {
             Tools.validateEmail(adminMail);
             Tools.validatePass(adminPass);            
             Tools.validateEmail(mailFrom);
-            Tools.validatePass(mailPass);
+//            Tools.validatePass(mailPass);
         }catch (ValidationException ex){
-            Logger.getLogger(StartListener.class.getName()).log(Level.SEVERE, ex.getLogMessage());
+            Logger.getLogger(StartListener.class.getName()).log(Level.SEVERE, "Se ha detectado un posible problema de seguridad "
+                    + "en los parámetros del descriptor de despliegue" ,ex);
             return false;
         }        
         return true;

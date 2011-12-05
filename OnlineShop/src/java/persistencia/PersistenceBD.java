@@ -100,7 +100,7 @@ public class PersistenceBD implements PersistenceInterface {
         boolean exito = false;
         try {
             conexion = pool.getConnection();
-            insert = conexion.prepareCall("INSERT INTO " + nameBD + ".Productos VALUES (?,?,?,?,?,?)");
+            insert = conexion.prepareStatement("INSERT INTO " + nameBD + ".Productos VALUES (?,?,?,?,?,?)");
             insert.setString(1, prod.getCodigo());
             insert.setString(2, prod.getNombre());
             insert.setDouble(3, prod.getPrecio());
@@ -375,7 +375,7 @@ public class PersistenceBD implements PersistenceInterface {
         ResultSet rs = null;
         try {
             conexion = pool.getConnection();
-            select = conexion.prepareCall("SELECT* FROM " + nameBD + ".Productos");
+            select = conexion.prepareStatement("SELECT* FROM " + nameBD + ".Productos");
             rs = select.executeQuery();
             while (rs.next()) {
                 Producto prod = new Producto(rs.getString("Codigo"), rs.getString("Nombre"),
@@ -561,7 +561,7 @@ public class PersistenceBD implements PersistenceInterface {
                     conexion.rollback();
                 } else {
                     Map<String, Integer> productosCarro = new HashMap<String, Integer>();
-                    selectProductos = conexion.prepareCall("SELECT CodigoProducto, Cantidad FROM " +
+                    selectProductos = conexion.prepareStatement("SELECT CodigoProducto, Cantidad FROM " +
                             nameBD + ".Carritos WHERE CodigoCarrito=?");
                     selectProductos.setString(1, carrosIncompletos.get(0));
                     rs = selectProductos.executeQuery();

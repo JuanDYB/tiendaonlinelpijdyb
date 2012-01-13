@@ -37,7 +37,7 @@ public class LogFilter implements Filter {
         boolean ok = persistencia.saveRequest(fechaHora, requestedURL, remoteAddr, remoteHost,
                 method, param, userAgent);
         if (ok == false){
-            Logger.getLogger(LogFilter.class.getName()).log(Level.INFO, "No se ha guardado el registro en la BD");
+            Logger.getLogger(LogFilter.class.getName()).log(Level.INFO, "No se ha guardado el log de petición en la BD");
         }        
         chain.doFilter(request, response);        
     }

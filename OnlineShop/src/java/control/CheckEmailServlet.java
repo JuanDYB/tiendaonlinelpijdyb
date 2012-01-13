@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ public class CheckEmailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/x-json;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("{\"validation_failed\":{\"email\":[{");
+        out.println ("{");
 
         if (request.getParameter("value") != null) {
             try {
@@ -27,28 +29,34 @@ public class CheckEmailServlet extends HttpServlet {
                 PersistenceInterface persistencia = (PersistenceInterface) request.getServletContext().getAttribute("persistence");
                 if (persistencia.getUser(email) == null) {
                     out.println("\"success\": true,");
-                    out.println("\"message\": \"Email disponible\",");
+                    out.println("\"message\": \"Email disponible\"");
                 } else {
                     out.println("\"success\": false,");
-                    out.println("\"message\": \"Direcci&oacute;n de email no disponible\",");
+                    out.println("\"message\": \"Direcci&oacute;n de email no disponible\"");
                 }
 
             } catch (IntrusionException ex) {
+                //Intrusión detectada
                 out.println("\"success\": false,");
-                out.println("\"message\": \"Intrusi&oacute;n detectada\",");
+                out.println("\"message\": \"\"");
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Intento de intrusión validación ajax");
             } catch (ValidationException ex) {
+                //Validación ajax fallida
                 out.println("\"success\": false,");
-                out.println("\"message\": \"Validaci&oacute;n fallida\",");
+                out.println("\"message\": \"\"");
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Validación via ajax fallida");
             } finally {
-                out.println("}]}}");
+//                out.println ("\"advice_id\": \"advice\"");
+                out.println("}");
                 out.close();
             }
         } else {
             try {
                 out.println("\"success\": false,");
-                out.println("\"message\": \"Validaci&oacute;n ajax fallida\",");
+                out.println("\"message\": \"Validaci&oacute;n ajax fallida\"");
             } finally {
-                out.println("}]}}");
+//                out.println ("\"advice_id\": \"advice\"");
+                out.println("}");
                 out.close();
             }
         }

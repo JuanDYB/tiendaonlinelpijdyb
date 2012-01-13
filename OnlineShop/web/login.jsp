@@ -87,7 +87,8 @@
         <input name="dir" type="text" size="70" maxlength="200" class=":dir :required :only_on_blur"/><br /><br />
         
         Email<br />
-        <input id="email" name="email" type="text" size="30" maxlength="60" class=":email :required :only_on_blur :ajax;/checkmail"/><br /><br />
+        <input id="email" name="email" type="text" size="30" maxlength="60" class=":email :required :ajax;/checkmail :only_on_blur"/>
+        <br /><br />
         
         Contrase&ntilde;a<br />
         <input id="pass" name="pass" type="password" size="25" maxlength="20" class=":password :required :only_on_blur"/><br /><br />

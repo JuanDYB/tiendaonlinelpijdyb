@@ -48,8 +48,8 @@
       
       <p>
         <span class="header">Cambiar los datos de registro</span><br />
+        Puede usar este formulario para cambiar sus datos personales
       </p>
-      Puede usar este formulario para cambiar sus datos personales
       <form name="changeData" action="/admin/edituser" method="post">
       	Nombre<br />
         <input name="name" type="text" size="50" maxlength="100" class=":alpha :required :only_on_blur" value="<%= actualUser.getNombre() %>"/><br /><br />

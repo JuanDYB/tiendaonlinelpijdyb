@@ -60,7 +60,7 @@ public class AddProductServlet extends HttpServlet {
                 }else{
                     codigo = ((Producto) request.getSession().getAttribute("productoEnCursoAdd")).getCodigo();
                 }                
-                if (request.getPart("foto").getSize() < 0) {
+                if (request.getPart("foto").getSize() > 0) {
                     if (request.getPart("foto").getContentType().contains("image") == false ||
                             request.getPart("foto").getSize() > 8388608) {
                         request.setAttribute("resultados", "Archivo no válido");

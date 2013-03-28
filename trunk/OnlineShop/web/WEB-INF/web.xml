@@ -227,7 +227,7 @@
     <!-- Parametro de contexto - Archivo de historiales - NombreBD -->
     <context-param>
         <param-name>archivoHistoriales</param-name>
-        <param-value>qhi989</param-value>
+        <param-value>***</param-value>
         <!--<param-value>history.bin</param-value>-->
     </context-param>
     <!-- Archivo de recuperación de carritos-->
@@ -253,7 +253,7 @@
     <!-- Configuraciones del servidor SMTP -->
     <context-param>
         <param-name>hostMail</param-name>
-        <param-value>smtp.jdiezfoto.es</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>TSLMail</param-name>
@@ -265,19 +265,19 @@
     </context-param>
     <context-param>
         <param-name>mailUser</param-name>
-        <param-value>adx846c</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>authMail</param-name>
-        <param-value>true</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>mailFrom</param-name>
-        <param-value>onlineshop@jdiezfoto.es</param-value>
+        <param-value>***</param-value>
     </context-param>
     <context-param>
         <param-name>mailPass</param-name>
-        <param-value>OnliNEshop24</param-value>
+        <param-value>***</param-value>
     </context-param>
     <!-- Pagina de inicio -->
     <welcome-file-list>

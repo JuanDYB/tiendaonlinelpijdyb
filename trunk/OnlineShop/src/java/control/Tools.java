@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.owasp.esapi.ESAPI;
 import org.owasp.esapi.Validator;
@@ -280,5 +281,25 @@ public class Tools {
 
     public static Locale getLocale() {
         return new Locale("es", "ES");
+    }
+    
+    public static boolean recuperarYGuardarImagenFormulario (HttpServletRequest request, HttpServletResponse response, String codigo) throws IOException, ServletException{
+        if (request.getPart("foto").getContentType().contains("image") == false || request.getPart("foto").getSize() > 8388608) {
+            request.setAttribute("resultados", "Archivo no válido");
+            Tools.anadirMensaje(request, "Solo se admiten archivos de tipo imagen");
+            Tools.anadirMensaje(request, "El tamaño máximo de archivo son 8 Mb");
+            request.getRequestDispatcher("/admin/administration/products_administration.jsp").forward(request, response);
+            return false;
+        } else {
+            String fileName = request.getServletContext().getRealPath("/images/products/" + codigo);
+            boolean ok = Tools.guardarImagenDeProdructoEnElSistemaDeFicheros(request.getPart("foto").getInputStream(), fileName);
+            if (ok == false) {
+                request.setAttribute("resultados", "Fallo al guardar archivo");
+                Tools.anadirMensaje(request, "Ocurrio un error guardando la imagen");
+                request.getRequestDispatcher("/admin/administration/products_administration.jsp").forward(request, response);
+                return false;
+            }
+        }
+        return true;
     }
 }

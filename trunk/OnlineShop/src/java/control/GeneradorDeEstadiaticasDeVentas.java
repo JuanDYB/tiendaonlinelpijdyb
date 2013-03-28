@@ -1,12 +1,12 @@
 package control;
 
-import modelo.Carrito;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Carrito;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -63,8 +63,6 @@ public class GeneradorDeEstadiaticasDeVentas {
         for (int i = 1; i <=7; i++){
             if (comprasPerDay[i] != 0){
                 priceDiasSemana [i] = priceDiasSemana [i] / (double)comprasPerDay [i];
-            }else{
-                priceDiasSemana [i] = priceDiasSemana [i];
             }
         }
         return priceDiasSemana;

@@ -39,14 +39,13 @@ public class CheckEmailServlet extends HttpServlet {
                 //Intrusión detectada
                 out.println("\"success\": false,");
                 out.println("\"message\": \"\"");
-                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Intento de intrusión validación ajax");
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Intento de intrusión validación ajax de email");
             } catch (ValidationException ex) {
                 //Validación ajax fallida
                 out.println("\"success\": false,");
                 out.println("\"message\": \"\"");
-                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Validación via ajax fallida");
+                Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Validación de email via ajax fallida");
             } finally {
-//                out.println ("\"advice_id\": \"advice\"");
                 out.println("}");
                 out.close();
             }
@@ -55,7 +54,6 @@ public class CheckEmailServlet extends HttpServlet {
                 out.println("\"success\": false,");
                 out.println("\"message\": \"Validaci&oacute;n ajax fallida\"");
             } finally {
-//                out.println ("\"advice_id\": \"advice\"");
                 out.println("}");
                 out.close();
             }

@@ -36,6 +36,7 @@
 
     <p>
         <span class="header">Productos disponibles</span>
+    </p>
 
         <form name="busquedaProductos" method="post" action="/shop/search_prod">
             <input type="hidden" name="redirect" value="/shop/products.jsp" />
@@ -55,6 +56,7 @@
         productos = (Map <String, Producto>)request.getAttribute("resultadosBusqueda");
     }
     if (productos != null && productos.size() != 0){%>
+    
     <table border="0" align="center" width="90%">
         <tr class="headerTable"><td>Nombre</td><td>Precio</td><td>Disponibilidad</td><td>Descripci&oacute;n</td></tr>
         <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -77,9 +79,6 @@
         <% } else{ %>
         <p>No se han encontrado productos</p>
         <% } %>
-
-             
-    </p>
 
       <!-- Crea las esquinas redondeadas abajo -->
       <img src="/images/template/corner_sub_bl.gif" alt="bottom corner" class="vBottom"/>

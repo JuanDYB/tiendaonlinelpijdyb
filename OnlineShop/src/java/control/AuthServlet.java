@@ -1,7 +1,5 @@
 package control;
 
-import modelo.Carrito;
-import modelo.Usuario;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Timer;
@@ -11,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Carrito;
+import modelo.Usuario;
 import org.owasp.esapi.errors.IntrusionException;
 import org.owasp.esapi.errors.ValidationException;
 import persistencia.PersistenceInterface;
@@ -26,12 +26,12 @@ public class AuthServlet extends HttpServlet {
             request.setAttribute("resultados", "Error iniciando sesion");
             Tools.anadirMensaje(request, "El formulario enviado no es correcto");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
-        } else if (request.getSession().getAttribute("intentosLogin") != null && (Integer)request.getSession().getAttribute("intentosLogin") >= 5) {
+        } else if (request.getSession().getAttribute("intentosLogin") != null && (Integer) request.getSession().getAttribute("intentosLogin") >= 5) {
             request.setAttribute("resultados", "Innicio de sesión bloqueado");
             Tools.anadirMensaje(request, "Se han superado el número de intentos de inicio de sesión, se ha bloqueado el incio de sesión");
             Tools.anadirMensaje(request, "Deberá esperar unos minutos para volver a intentarlo");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
             this.starTimer(request.getSession());
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             try {
                 String email = Tools.validateEmail(request.getParameter("email"));
@@ -41,6 +41,7 @@ public class AuthServlet extends HttpServlet {
 
                 Usuario user = persistence.getUser(email);
                 if (user != null) {
+                    //Inicio correcto
                     if (Tools.generateMD5Signature(password
                             + password.toLowerCase()).equals(user.getPass()) == true) {
                         request.getSession().setAttribute("auth", true);
@@ -59,6 +60,7 @@ public class AuthServlet extends HttpServlet {
                         }
                         request.getSession().removeAttribute("intentosLogin");
                         return;
+                    //Contraseña incorrecta
                     } else {
                         Tools.anadirMensaje(request, "La contraseña introducida es incorrecta");
                         Tools.anadirMensaje(request, "Haga click <a href=\"/recoverpass?email="
@@ -67,12 +69,7 @@ public class AuthServlet extends HttpServlet {
                 } else {
                     Tools.anadirMensaje(request, "No se ha encontrado ningún usuario con los datos especificados");
                 }
-
-                if (request.getSession().getAttribute("intentosLogin") == null) {
-                    request.getSession().setAttribute("intentosLogin", 1);
-                } else {
-                    request.getSession().setAttribute("intentosLogin", (Integer) request.getSession().getAttribute("intentosLogin") + 1);
-                }
+                this.incrementarIntentos(request.getSession());
                 request.setAttribute("resultados", "Error inciando sesion");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
             } catch (IntrusionException ex) {
@@ -106,9 +103,18 @@ public class AuthServlet extends HttpServlet {
                 sesion.invalidate();
             }
         };
-        
-        Timer timer = new Timer ();
+
+        Timer timer = new Timer();
+        //10 minutos ---> 600.000 milisegundos
         timer.schedule(timerTask, 600000);
+    }
+
+    protected void incrementarIntentos(HttpSession sesion) {
+        if (sesion.getAttribute("intentosLogin") == null) {
+            sesion.setAttribute("intentosLogin", 1);
+        } else {
+            sesion.setAttribute("intentosLogin", (Integer) sesion.getAttribute("intentosLogin") + 1);
+        }
     }
 
     @Override

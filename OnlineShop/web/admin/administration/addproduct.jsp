@@ -36,21 +36,6 @@
     <div id="contentRight">
         <%@include file="/WEB-INF/include/resultados.jsp" %>
         
-            <%
-            String nombre = "";
-            String precio = "";
-            String stock = "";
-            String descripcion = "";
-            String detalles = "";
-           if (session.getAttribute ("productoEnCursoAdd") != null){
-                Producto prod = (Producto) session.getAttribute("productoEnCursoAdd");
-                nombre = "value=\"" + prod.getNombre() + "\"";
-                precio = "value=\"" + prod.getPrecio() + "\"";
-                stock = "value=\"" + prod.getStock() + "\"";
-                descripcion = "value=\"" + prod.getDesc() + "\"";
-                detalles = prod.getDetalles();
-        } %>
-
 
         <p>
             <span class="header">A&ntilde;adir producto</span>
@@ -59,18 +44,18 @@
         <form name="addprod" method="post" action="/admin/administration/addprod" enctype="multipart/form-data" >
 
             <b>Nombre</b> <br />
-            <input type="text" name="name" maxlength="70" size="50" class=":alpha :required :only_on_blur" <%= nombre %> /><br /><br />
+            <input type="text" name="name" maxlength="70" size="50" class=":alpha :required :only_on_blur" /><br /><br />
             <b>Precio</b> <br />
-            <input type="text" name="price" maxlength="10" size="13" class=":number :required :only_on_blur" <%= precio %> /><br /><br />
+            <input type="text" name="price" maxlength="10" size="13" class=":number :required :only_on_blur" /><br /><br />
             <b>Unidades en stock</b> <br />
-            <input type="text" name="stock" maxlength="6" size="8" class=":digits :required :only_on_blur" <%= stock %> /><br /><br />
+            <input type="text" name="stock" maxlength="6" size="8" class=":digits :required :only_on_blur" /><br /><br />
             <b>Descripci&oacute;n corta</b> <br />
-            <input type="text" name="desc" maxlength="100" size ="50" class=":required :only_on_blur" <%= descripcion %> /><br /><br />
+            <input type="text" name="desc" maxlength="100" size ="50" class=":required :only_on_blur" /><br /><br />
             <b>Escoja una foto de producto</b>&nbsp;(Opcional)<br />
             <input type="file" name="foto" /><br /><br />
             <b>Detalles</b> <br />
             Puede usar etiquetas html (si usa etiquetas invalidas sera bloqueado)<br />
-            <textarea name="detail" cols="60" rows="15" class=":required :only_on_blur"><%= detalles.replace("<br />", "\n") %></textarea><br /><br />
+            <textarea name="detail" cols="60" rows="15" class=":required :only_on_blur"></textarea><br /><br />
             <input type="submit" name="sendProd" value="Enviar datos" />
         </form>
       <!-- Crea las esquinas redondeadas abajo -->

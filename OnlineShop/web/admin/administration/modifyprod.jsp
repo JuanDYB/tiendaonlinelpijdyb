@@ -49,19 +49,14 @@
                         boolean encontrado = true;
                         Producto prod = null;
 
-                        if (session.getAttribute("productoEnCursoEdit") == null) {
-                            PersistenceInterface persistencia = (PersistenceInterface) application.getAttribute("persistence");
-                            prod = persistencia.getProduct(request.getParameter("prod"));
-                            if (prod != null) {
-                                encontrado = true;
-                            } else {
-                                encontrado = false;
-                            }
-                        } else if (session.getAttribute("productoEnCursoEdit") != null) {
-                            prod = (Producto) session.getAttribute("productoEnCursoEdit");
+                        PersistenceInterface persistencia = (PersistenceInterface) application.getAttribute("persistence");
+                        prod = persistencia.getProduct(request.getParameter("prod"));
+                        if (prod != null) {
                             encontrado = true;
+                        } else {
+                            encontrado = false;
                         }
-                        
+
                         if (prod != null) {
                             nombre = "value=\"" + prod.getNombre() + "\"";
                             precio = "value=\"" + prod.getPrecio() + "\"";
@@ -69,8 +64,6 @@
                             descripcion = "value=\"" + prod.getDesc() + "\"";
                             detalles = prod.getDetalles();
                             codigo = prod.getCodigo();
-                        } else {
-                            encontrado = false;
                         }
 
                     %>
@@ -78,28 +71,29 @@
                     <% if (encontrado == true) {%>
                     <p>
                         <span class="header">Modificar producto</span>
-
-                        <form name="modifyprod" method="post" action="/admin/administration/editprod" enctype="multipart/form-data">
-                            <input type="hidden" name="codigo" value="<%= codigo%>" />
-
-                            <b>Nombre</b> <br />
-                            <input type="text" name="name" maxlength="50" class=":alpha :required :only_on_blur" <%= nombre%> /><br /><br />
-                            <b>Precio</b> <br />
-                            <input type="text" name="price" maxlength="10" class=":number :required :only_on_blur" <%= precio%> /><br /><br />
-                            <b>Unidades en stock</b> <br />
-                            <input type="text" name="stock" maxlength="5" class=":digits :required :only_on_blur" <%= stock%> /><br /><br />
-                            <b>Descripci&oacute;n corta</b> <br />
-                            <input type="text" name="desc" maxlength="100" class=":required :only_on_blur" <%= descripcion%> /><br /><br />
-                            Imagen del producto (opcional)<br />
-                            <% if (Tools.existeElFichero(request.getServletContext().getRealPath("/images/products/" + codigo)) == true) {%>
-                            <input type="checkbox" name="conserv" checked value="conservarImagen"/> Conservar imagen actual<br />
-                            <% }%>
-                            <input type="file" name="foto" /><br /><br />
-                            <b>Detalles</b> <br />
-                            <textarea name="detail" cols="60" rows="15" class=":required :only_on_blur"><%= detalles.replace("<br />", "\n")%></textarea><br /><br />
-                            <input type="submit" name="sendProd" value="Enviar datos" />
-                        </form>
                     </p>
+
+                    <form name="modifyprod" method="post" action="/admin/administration/editprod" enctype="multipart/form-data">
+                        <input type="hidden" name="codigo" value="<%= codigo%>" />
+
+                        <b>Nombre</b> <br />
+                        <input type="text" name="name" maxlength="50" class=":alpha :required :only_on_blur" <%= nombre%> /><br /><br />
+                        <b>Precio</b> <br />
+                        <input type="text" name="price" maxlength="10" class=":number :required :only_on_blur" <%= precio%> /><br /><br />
+                        <b>Unidades en stock</b> <br />
+                        <input type="text" name="stock" maxlength="5" class=":digits :required :only_on_blur" <%= stock%> /><br /><br />
+                        <b>Descripci&oacute;n corta</b> <br />
+                        <input type="text" name="desc" maxlength="100" class=":required :only_on_blur" <%= descripcion%> /><br /><br />
+                        Imagen del producto (opcional)<br />
+                        <% if (Tools.existeElFichero(request.getServletContext().getRealPath("/images/products/" + codigo)) == true) {%>
+                        <input type="checkbox" name="conserv" value="conservarImagen" checked /> Conservar imagen actual<br />
+                        <% }%>
+                        <input type="file" name="foto" /><br /><br />
+                        <b>Detalles</b> <br />
+                        <textarea name="detail" cols="60" rows="15" class=":required :only_on_blur"><%= detalles.replace("<br />", "\n")%></textarea><br /><br />
+                        <input type="submit" name="sendProd" value="Enviar datos" />
+                    </form>
+
                     <% } else {%>
                     <p>
                         <span class="header">Producto no encontrado</span><br />
@@ -124,9 +118,7 @@
 <%--Funcion para validar la entrada en esta jsp con los parametros necesarios--%>
 <%! private boolean validar(HttpServletRequest request, HttpSession sesion) {
         if (request.getParameterMap().size() >= 1 && request.getParameter("prod") != null) {
-            return Tools.validateUUID(request.getParameter("prod"));
-        } else if (request.getParameterMap().size() >= 0 && sesion.getAttribute("productoEnCursoEdit") != null) {
-            return true;
+            return Tools.validateUUID(request.getParameter("prod")); 
         } else {
             return false;
         }

@@ -2,8 +2,8 @@ package control.admin;
 
 import control.Tools;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +15,7 @@ import persistencia.PersistenceInterface;
 /**
  * @author Juan Díez-Yanguas Barber
  */
+@MultipartConfig
 public class EditProductServlet extends HttpServlet {
 
     private boolean validateForm(HttpServletRequest request) throws IOException, ServletException {
@@ -48,18 +49,18 @@ public class EditProductServlet extends HttpServlet {
                 Tools.validateHTML(detalles);
                 String rutaImagen = request.getServletContext().getRealPath("/images/products/" + codigo);
                 ///-----Tratar imagenes
-                if (request.getPart("conserv").getSize() < 0 && Tools.existeElFichero(rutaImagen)){
+                if (request.getPart("conserv") == null && Tools.existeElFichero(rutaImagen)) {
                     Tools.borrarImagenDeProdructoDelSistemaDeFicheros(rutaImagen);
-                    if (request.getPart("foto").getSize() > 0) {
-                        if (!Tools.recuperarYGuardarImagenFormulario(request, response, codigo)){
-                            return;
-                        }
-                    } else{
-                        Tools.anadirMensaje(request, "Se ha decidido no conservar la imagen anterior y no se ha seleccionado otra");
-                    } 
+                    if (request.getPart("foto").getSize() <= 0) {
+                        Tools.anadirMensaje(request, "ADVERTENCIA: Se ha decidido no conservar la imagen anterior y no se ha seleccionado otra");
+
+                    }
+                }
+                if (request.getPart("foto").getSize() > 0 && !Tools.recuperarYGuardarImagenFormulario(request, response, codigo)) {
+                    return;
                 }
                 ///-----Fin tratado de imagenes
-                
+
                 Producto prod = new Producto(codigo, nombre, precio, nStock, descripcion, detalles);
                 boolean ok = persistencia.updateProduct(prod.getCodigo(), prod);
                 request.setAttribute("resultados", "Resultados de la operación");

@@ -1,0 +1,8 @@
+title: Tienda Online Java EE
+description: Tienda online desarrollada en Java EE usando servlets y jsp
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions

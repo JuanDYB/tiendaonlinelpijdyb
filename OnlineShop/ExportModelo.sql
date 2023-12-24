@@ -58,11 +58,7 @@ CREATE TABLE IF NOT EXISTS nameBD.`HistorialCarritos` (
   PRIMARY KEY  (`CodigoCarrito`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `Log`
---
 
 CREATE TABLE IF NOT EXISTS nameBD.`Log` (
   `FechaHora` datetime NOT NULL,
@@ -74,10 +70,7 @@ CREATE TABLE IF NOT EXISTS nameBD.`Log` (
   `User-Agent` varchar(255) collate utf8_spanish2_ci default NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Productos`
+Estructura de tabla para la tabla `Productos`
 --
 
 CREATE TABLE IF NOT EXISTS nameBD.`Productos` (
@@ -90,11 +83,7 @@ CREATE TABLE IF NOT EXISTS nameBD.`Productos` (
   PRIMARY KEY  (`Codigo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `Usuarios`
---
 
 CREATE TABLE IF NOT EXISTS nameBD.`Usuarios` (
   `Email` varchar(60) collate utf8_spanish2_ci NOT NULL,
